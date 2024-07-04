@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_task_manager">
 
+    <fragment
+        android:id="@+id/navigation_task_manager"
+        android:name="shadeslayer.omniapp.taskmanager.TaskManagerFragment"
+        android:label="Tasks"
+        tools:layout="@layout/todo_activity_main"/>
 </navigation>

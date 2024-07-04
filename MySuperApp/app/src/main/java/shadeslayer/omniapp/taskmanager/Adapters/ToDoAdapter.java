@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import shadeslayer.omniapp.taskmanager.AddNewTask;
@@ -21,12 +22,12 @@ import java.util.List;
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     private List<ToDoModel> todoList;
-    private MainActivity activity;
+    private FragmentActivity fragmentActivity;
     private DatabaseHandler db;
 
-    public  ToDoAdapter(DatabaseHandler db, MainActivity activity){
+    public  ToDoAdapter(DatabaseHandler db, FragmentActivity fragmentActivity){
         this.db = db;
-        this.activity = activity;
+        this.fragmentActivity = fragmentActivity;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,7 +63,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     }
 
     public Context getContext(){
-        return activity;
+        return fragmentActivity;
     }
 
     public void deleteItem(int position){
@@ -79,7 +80,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         bundle.putString("task", item.getTask());
         AddNewTask fragment = new AddNewTask();
         fragment.setArguments(bundle);
-        fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG);
+        fragment.show(fragmentActivity.getSupportFragmentManager(), AddNewTask.TAG);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
