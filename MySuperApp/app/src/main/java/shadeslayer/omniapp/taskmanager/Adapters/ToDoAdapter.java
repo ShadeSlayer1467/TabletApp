@@ -17,6 +17,7 @@ import shadeslayer.omniapp.taskmanager.Models.ToDoModel;
 import shadeslayer.omniapp.R;
 import shadeslayer.omniapp.taskmanager.Utils.DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
@@ -27,6 +28,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     public  ToDoAdapter(DatabaseHandler db, FragmentActivity fragmentActivity){
         this.db = db;
+        todoList = new ArrayList<>();
         this.fragmentActivity = fragmentActivity;
     }
 
@@ -54,7 +56,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     }
 
     public int getItemCount(){
-        return todoList.size();
+        return todoList != null ? todoList.size() : 0;
     }
 
     public void setTasks(List<ToDoModel> todoList){
