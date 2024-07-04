@@ -5,9 +5,9 @@
     android:background="@android:color/holo_green_dark">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/todoappicon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:scaleType="centerCrop"
-        android:layout_centerInParent="true"/>
+        android:src="@drawable/todoappicon" />
 </RelativeLayout>

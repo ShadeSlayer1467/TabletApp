@@ -8,14 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import shadeslayer.omniapp.databinding.ActivityMainBinding;
-import shadeslayer.omniapp.taskmanager.TaskManagerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new TaskManagerFragment());
+        replaceFragment(new Home());
 
-        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
-            if (itemId == R.id.navigation_home) {
-                replaceFragment(new TaskManagerFragment());
+            if (itemId == R.id.home) {
+                replaceFragment(new Home());
             } else {
                 // TODO: Log unexpected behavior
             }
@@ -43,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.nav_host_fragment, fragment)
+                .replace(R.id.frame_layout, fragment)
                 .commit();
     }
 }
