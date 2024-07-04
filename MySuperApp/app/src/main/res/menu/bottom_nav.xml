@@ -5,4 +5,8 @@
         android:id="@+id/home"
         android:textColor="@color/colorPrimary"
         android:icon="@drawable/baseline_home_24"/>
+    <item android:title="ToDo"
+        android:id="@+id/todoMenuItem"
+        android:textColor="@color/colorPrimary"
+        android:icon="@drawable/baseline_home_24"/>
 </menu>
