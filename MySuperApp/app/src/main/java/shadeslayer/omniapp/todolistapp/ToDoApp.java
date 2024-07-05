@@ -1,5 +1,6 @@
 package shadeslayer.omniapp.todolistapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,7 +23,8 @@ import shadeslayer.omniapp.todolistapp.Adapters.ToDoAdapter;
 import shadeslayer.omniapp.todolistapp.Models.ToDoModel;
 import shadeslayer.omniapp.todolistapp.Utils.DatabaseHandler;
 
-public class ToDoApp extends Fragment {
+public class ToDoApp extends Fragment implements DialogCloseListener {
+    public static final String TAG = "ToDoFragment";
 
     private RecyclerView tasksRecyclerView;
     private ToDoAdapter tasksAdapter;
@@ -65,13 +67,16 @@ public class ToDoApp extends Fragment {
         Collections.reverse(tasksList);
         tasksAdapter.setTasks(tasksList);
 
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                AddNewTask.newInstance().show(getActivity().getSupportFragmentManager(), AddNewTask.TAG);
-            }
-        });
+        fab.setOnClickListener(view1 -> AddNewTask.newInstance().show(getActivity().getSupportFragmentManager(), AddNewTask.TAG));
 
         return view;
     }
+    @Override
+    public void handleDialogClose(DialogInterface dialog){
+        tasksList = db.getAllTasks();
+        Collections.reverse(tasksList);
+        tasksAdapter.setTasks(tasksList);
+        tasksAdapter.notifyDataSetChanged();
+    }
+
 }

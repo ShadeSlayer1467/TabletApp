@@ -18,15 +18,15 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new Home());
+        replaceFragment(new Home(), Home.TAG);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
-                replaceFragment(new Home());
+                replaceFragment(new Home(), Home.TAG);
             } else if (itemId == R.id.todoMenuItem) {
-                replaceFragment(new ToDoApp());
+                replaceFragment(new ToDoApp(), ToDoApp.TAG);
             } else {
                 // TODO: Log unexpected behavior
 
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String tag) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, fragment)
+                .replace(R.id.frame_layout, fragment, tag)
                 .commit();
     }
 }

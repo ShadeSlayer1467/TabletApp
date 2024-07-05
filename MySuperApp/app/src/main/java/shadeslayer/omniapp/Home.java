@@ -14,6 +14,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Home extends Fragment {
+    public static final String TAG = "HomeFragment";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
