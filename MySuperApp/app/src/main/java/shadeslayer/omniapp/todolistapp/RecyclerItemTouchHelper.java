@@ -50,6 +50,13 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
                 }
             });
             AlertDialog dialog = builder.create();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    // Reset the item state upon dialog dismissal
+                    adapter.notifyItemChanged(position);
+                }
+            });
             dialog.show();
         } else {
             adapter.editItem(position);
