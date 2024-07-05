@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             tool:text="This is a Sample Task inside the application. "
             android:paddingStart="8dp"
-            android:buttonTint="@android:color/holo_green_dark"/>
+            android:buttonTint="@color/colorPrimary"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
 

@@ -8,5 +8,5 @@
     <item android:title="ToDo"
         android:id="@+id/todoMenuItem"
         android:textColor="@color/colorPrimary"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_task_24"/>
 </menu>
