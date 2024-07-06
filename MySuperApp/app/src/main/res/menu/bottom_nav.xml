@@ -9,4 +9,8 @@
         android:id="@+id/todoMenuItem"
         android:textColor="@color/colorPrimary"
         android:icon="@drawable/baseline_task_24"/>
+    <item android:title="Stopwatch"
+        android:id="@+id/stopwatchMenuItem"
+        android:textColor="@color/colorPrimary"
+        android:icon="@drawable/baseline_clock"/>
 </menu>
