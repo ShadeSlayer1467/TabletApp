@@ -4,9 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,41 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
-
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 
 import shadeslayer.omniapp.R;
+import shadeslayer.omniapp.hobbytracker.Models.Activity;
+import shadeslayer.omniapp.hobbytracker.Utils.DatabaseHandler;
 
 public class HobbyTracker extends Fragment {
     public static final String TAG = "hobbyTrackerFragment";
-    TextView textview;
-    MaterialButton reset, start, stop;
-    int seconds, minutes, milliSeconds;
-    long millisecond, startTime,timeBuff, updateTime = 0L;
-    Handler handler;
-
-
-    ListView lvTimes;
-    ArrayList<String> timeList = new ArrayList<>();
-    ArrayAdapter<String> timeListAdapter;
-
-    private final Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            millisecond = SystemClock.uptimeMillis() - startTime;
-            updateTime = timeBuff + millisecond;
-            seconds = (int) (updateTime / 1000);
-            minutes = seconds / 60;
-            seconds = seconds % 60;
-            milliSeconds = (int) (updateTime % 1000);
-
-            textview.setText(MessageFormat.format("{0}:{1}:{2}",minutes, String.format(Locale.getDefault(), "%02d", seconds), String.format(Locale.getDefault(), "%02d", milliSeconds)));
-            handler.postDelayed(this, 0);
-        }
-    };
+    private ListView listView;
+    private DatabaseHandler dbHandler;
 
     public HobbyTracker() {
         // Required empty public constructor
@@ -64,64 +36,23 @@ public class HobbyTracker extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_stopwatch, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_hobbytracker, container, false);
+        listView = view.findViewById(R.id.listView);
+        dbHandler = new DatabaseHandler(getContext());
 
-        textview = view.findViewById(R.id.textView);
-        reset = view.findViewById(R.id.reset);
-        start = view.findViewById(R.id.start);
-        stop = view.findViewById(R.id.stop);
-        lvTimes = view.findViewById(R.id.lvTimes);
-
-        // ArrayAdapter setup
-        timeListAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, timeList);
-        lvTimes.setAdapter(timeListAdapter);
-
-        handler = new Handler(Looper.getMainLooper());
-
-        start.setOnClickListener(new View.OnClickListener() {
+        List<Activity> activities = dbHandler.getAllActivities();
+        ArrayAdapter<Activity> adapter = new ArrayAdapter<Activity>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, activities) {
             @Override
-            public void onClick(View view) {
-                startTime = SystemClock.uptimeMillis();
-                handler.postDelayed(runnable, 0);
-                reset.setEnabled(false);
-                stop.setEnabled(true);
-                start.setEnabled(false);
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = view.findViewById(android.R.id.text1);
+                Activity activity = (Activity) getItem(position);
+                text1.setText(activity.getName() + " - " + activity.getDescription());
+                return view;
             }
-        });
-
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                timeBuff += millisecond;
-                handler.removeCallbacks(runnable);
-                reset.setEnabled(true);
-                stop.setEnabled(false);
-                start.setEnabled(true);
-                // Capture and display the time
-                timeList.add(textview.getText().toString());
-                timeListAdapter.notifyDataSetChanged();
-            }
-        });
-
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                millisecond = 0L;
-                startTime = 0L;
-                timeBuff = 0L;
-                updateTime = 0L;
-                seconds = 0;
-                minutes = 0;
-                milliSeconds = 0;
-                textview.setText("00:00:00");
-            }
-        });
-
-        textview.setText("00:00:00");
-
+        };
+        listView.setAdapter(adapter);
         return view;
     }
 }
