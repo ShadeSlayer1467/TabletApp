@@ -13,4 +13,8 @@
         android:id="@+id/stopwatchMenuItem"
         android:textColor="@color/colorPrimary"
         android:icon="@drawable/baseline_clock"/>
+    <item android:title="Stopwatch"
+        android:id="@+id/hobbyTrackerMenuItem"
+        android:textColor="@color/colorPrimary"
+        android:icon="@drawable/baseline_calendar"/>
 </menu>
