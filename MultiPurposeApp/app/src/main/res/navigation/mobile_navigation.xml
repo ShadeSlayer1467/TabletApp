@@ -22,4 +22,10 @@
         android:name="com.github.shadeslayer1467.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_todoapp"
+        android:name="com.github.shadeslayer1467.ui.todoapp.ToDoApp"
+        android:label="@string/menu_todoapp"
+        tools:layout="@layout/fragment_to_do_app_main" />
 </navigation>
