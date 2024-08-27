@@ -1,0 +1,11 @@
+Future thoughts:
+To implement cloud storage would need to make a secure auth channel
+
+Hobby Tracker
+-hobby tracker with cloud storage
+
+Stopwatch
+-adding in Timer and alarm features
+
+ToDo List
+-Cloud Storage
