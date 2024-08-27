@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tool:text="This is a Sample Task inside the application. "
+            android:textColor="@color/white"
             android:paddingStart="8dp"
             android:buttonTint="@color/colorPrimary"/>
     </RelativeLayout>

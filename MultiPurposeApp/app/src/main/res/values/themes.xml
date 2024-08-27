@@ -27,7 +27,8 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
-    <color name="colorPrimary">@android:color/holo_green_dark</color>
-    <color name="colorPrimaryDark">@android:color/holo_green_dark</color>
-    <color name="colorAccent">@android:color/white</color>
+    <color name="colorPrimary">#fef92f</color>
+    <color name="colorPrimaryMid">#c68b2b</color>
+    <color name="colorPrimaryDark">#6d2516</color>
+    <color name="colorAccent">#777873</color>
 </resources>
