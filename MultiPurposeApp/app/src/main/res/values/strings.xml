@@ -9,6 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_slideshow">Slideshow</string>menu_stopwatch
     <string name="menu_todoapp">Task List</string>
+    <string name="menu_stopwatch">Stopwatch</string>
 </resources>
