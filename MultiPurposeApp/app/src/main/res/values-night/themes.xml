@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.MultiPurposeApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">#fef92f</item>
+        <item name="colorPrimaryVariant">#fef92f</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">#6d2516</item>
+        <item name="colorSecondaryVariant">#6d2516</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorSecondary</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -20,7 +20,8 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
-    <color name="colorPrimary">@android:color/holo_green_dark</color>
-    <color name="colorPrimaryDark">@android:color/holo_green_dark</color>
-    <color name="colorAccent">@android:color/white</color>
+    <color name="colorPrimary">#fef92f</color>
+    <color name="colorPrimaryMid">#c68b2b</color>
+    <color name="colorPrimaryDark">#6d2516</color>
+    <color name="colorAccent">#777873</color>
 </resources>
