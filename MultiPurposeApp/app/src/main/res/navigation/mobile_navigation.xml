@@ -27,10 +27,10 @@
         android:id="@+id/nav_todoapp"
         android:name="com.github.shadeslayer1467.ui.todoapp.ToDoApp"
         android:label="@string/menu_todoapp"
-        tools:layout="@layout/fragment_to_do_app_main" />
+        tools:layout="@layout/fragment_todo" />
     <fragment
-        android:id="@+id/nav_Stopwatch"
-        android:name="com.github.shadeslayer1467.ui.stopwatch.Stopwatch"
-        android:label="@string/menu_stopwatch"
-        tools:layout="@layout/fragment_stopwatch" />
+        android:id="@+id/nav_Clock"
+        android:name="com.github.shadeslayer1467.ui.clock.ClockFragment"
+        android:label="@string/menu_Clock"
+        tools:layout="@layout/fragment_clock" />
 </navigation>

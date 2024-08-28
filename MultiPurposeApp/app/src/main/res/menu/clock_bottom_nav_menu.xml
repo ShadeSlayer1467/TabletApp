@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_stopwatch"
+        android:icon="@drawable/ic_baseline_clock_24"
+        android:title="@string/menu_stopwatch" />
+
+    <item
+        android:id="@+id/navigation_timer"
+        android:icon="@drawable/ic_baseline_av_timer_24"
+        android:title="@string/menu_timer" />
+</menu>

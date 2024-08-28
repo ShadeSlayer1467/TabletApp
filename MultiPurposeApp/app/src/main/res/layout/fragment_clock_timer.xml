@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Timer Display -->
+    <TextView
+        android:id="@+id/clockTimerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="01:00"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <!-- Start Timer Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clockTimerStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clockTimerStart"
+        android:layout_below="@id/clockTimerTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        app:cornerRadius="8dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    <!-- Pause Timer Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clockTimerPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clockTimerPause"
+        android:layout_below="@id/clockTimerStart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:cornerRadius="8dp"
+        android:enabled="false"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+    <!-- Reset Timer Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/clockTimerReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clockTimerReset"
+        android:layout_below="@id/clockTimerPause"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:cornerRadius="8dp"
+        android:enabled="false"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+</RelativeLayout>

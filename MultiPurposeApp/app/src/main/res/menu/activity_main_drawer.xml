@@ -21,8 +21,8 @@
             android:icon="@drawable/ic_baseline_checklist_24"
             android:title="@string/menu_todoapp" />
         <item
-            android:id="@+id/nav_Stopwatch"
+            android:id="@+id/nav_Clock"
             android:icon="@drawable/ic_baseline_clock_24"
-            android:title="@string/menu_stopwatch" />
+            android:title="@string/menu_Clock" />
     </group>
 </menu>

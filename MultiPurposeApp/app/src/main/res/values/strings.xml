@@ -11,5 +11,17 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>menu_stopwatch
     <string name="menu_todoapp">Task List</string>
+    <string name="menu_Clock">Clock</string>
+
+    <!-- Clock Fragment-->
     <string name="menu_stopwatch">Stopwatch</string>
+    <string name="menu_timer">Timer</string>
+
+    <string name="clockTimerReset">Reset Timer</string>
+    <string name="clockTimerStart">Start Timer</string>
+    <string name="clockTimerPause">Pause Timer</string>
+
+    <string name="clockStopwatchReset">Reset</string>
+    <string name="clockStopwatchStart">Start</string>
+    <string name="clockStopwatchStop">Stop</string>
 </resources>

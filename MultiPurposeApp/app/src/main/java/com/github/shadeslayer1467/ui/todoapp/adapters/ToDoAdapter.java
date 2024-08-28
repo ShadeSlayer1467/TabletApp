@@ -31,7 +31,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_to_do_app_task_layout, parent, false);
+                .inflate(R.layout.fragment_todo_task_layout, parent, false);
         return new ViewHolder(itemView);
     }
 
