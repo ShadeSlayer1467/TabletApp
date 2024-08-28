@@ -9,50 +9,66 @@ public class TimerManager {
     private final TextView textView;
     private final long initialTime;
     private CountDownTimer countDownTimer;
-    private long timeLeft;
 
-    public TimerManager(TextView textView, long initialTime) {
+    private long timeLeft;
+    Runnable finishedReset;
+    public Boolean hasFinished = true;
+
+    public TimerManager(TextView textView, long initialTime, Runnable finishedReset) {
         this.textView = textView;
         this.initialTime = initialTime;
-        this.timeLeft = initialTime;
+        timeLeft = initialTime;
+        this.finishedReset = finishedReset;
+        NewCountdown();
     }
 
-    public void start(Runnable reset) {
-        countDownTimer = new CountDownTimer(timeLeft, 10) {
-            public void onTick(long millisUntilFinished) {
-                timeLeft = millisUntilFinished;
-                updateTimer();
-            }
-
-            public void onFinish() {
-                textView.setText("00:00:00");
-                if (reset != null) reset.run();
-            }
-        }.start();
+    public void start() {
+        hasFinished = false;
+        NewCountdown();
+        countDownTimer.start();
     }
 
     public void pause() {
         countDownTimer.cancel();
     }
 
-    public void reset() {
-        timeLeft = initialTime;
-        updateTimer();
+    public void Resume() {
+        NewCountdown(timeLeft);
+        countDownTimer.start();
     }
 
-    private void updateTimer() {
-        try {
-            int minutes = (int) (timeLeft / 1000 / 60);
-            int seconds = (int) (timeLeft / 1000 % 60);
-            int milliseconds;
-
-            milliseconds = (timeLeft > 1000) ? (int) (timeLeft % (seconds * 1000) / 10) :
-                    (int) (timeLeft % 1000 / 10); // Handle case when timeLeft < 1000 ms
-
-
-            textView.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", minutes, seconds, milliseconds));
-        } catch (Exception e) {
-        }
+    private void NewCountdown()
+    {
+        NewCountdown(initialTime);
     }
+    private void NewCountdown(Long time)
+    {
+        countDownTimer = new CountDownTimer(time, 10) {
+            public void onTick(long millisUntilFinished) {
+                timeLeft = millisUntilFinished;
+                try {
+                    int hours = (int) (millisUntilFinished / HOUR);
+                    int minutes = (int) ((millisUntilFinished % HOUR) / MINUTE);
+                    int seconds = (int) ((millisUntilFinished % MINUTE) / SECOND);
+                    int milliseconds = (int) (millisUntilFinished % SECOND);
+
+                    if (hours == 0) textView.setText(String.format(Locale.getDefault(), "%02d:%02d:%03d", minutes, seconds, milliseconds));
+                    else textView.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d:%03d", hours, minutes, seconds, milliseconds));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            public void onFinish() {
+                textView.setText("00:00:000");
+                hasFinished = true;
+                if (finishedReset != null) finishedReset.run();
+            }
+        };
+    }
+
+    private final long HOUR = 3_600_000;
+    private final long MINUTE = 60_000;
+    private final long SECOND = 1_000;
 }
 
