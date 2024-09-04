@@ -1,0 +1,29 @@
+package com.github.shadeslayer1467.ui.hobbytracker.databases;
+
+import android.database.sqlite.SQLiteOpenHelper;
+
+import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
+import com.github.shadeslayer1467.ui.hobbytracker.models.EventSessionModel;
+
+import java.util.List;
+
+public interface EventDatabase {
+    public void openDatabase();
+
+    String getCategory(int categoryID);
+
+    // Event operations
+    void createEvent(EventModel event);
+    EventModel getEvent(int eventId);
+    List<EventModel> getAllEvents();
+    void updateEvent(EventModel event);
+    void deleteEvent(int eventId);
+
+    // Event session operations
+    void createSession(EventSessionModel session);
+    EventSessionModel getSession(int sessionId);
+    List<EventSessionModel> getSessionsForEvent(int eventId);
+    void updateSession(EventSessionModel session);
+    void deleteSession(int sessionId);
+
+}

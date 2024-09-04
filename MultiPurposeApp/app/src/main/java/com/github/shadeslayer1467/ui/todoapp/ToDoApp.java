@@ -57,7 +57,7 @@ public class ToDoApp extends Fragment implements DialogCloseListener {
         tasksAdapter = new ToDoAdapter(db, (MainActivity) this.getActivity());
         tasksRecyclerView.setAdapter(tasksAdapter);
 
-        fab = view.findViewById(R.id.fab);
+        fab = view.findViewById(R.id.todoFAB);
 
         ItemTouchHelper itemTouchHelper = new
                 ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
