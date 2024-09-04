@@ -29,15 +29,16 @@ public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> 
         this.activity = activity;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_hobbytracker_hobby_cardview, parent, false); // Assuming you have a layout file named fragment_hobby_cardview.xml
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         db.openDatabase();
         EventModel item = hobbyList.get(position);
         holder.hobbyName.setText(item.getEventName());
@@ -56,34 +57,31 @@ public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> 
     public int getItemCount() {
         return hobbyList.size();
     }
-
     public void setHobbies(List<EventModel> hobbyList) {
         this.hobbyList = hobbyList;
         notifyDataSetChanged();
     }
-
     public Context getContext() {
         return activity;
     }
-
     public void deleteItem(int position) {
         EventModel item = hobbyList.get(position);
         db.deleteEvent(item.getEventId());
         hobbyList.remove(position);
         notifyItemRemoved(position);
     }
-
     public void editItem(int position) {
         EventModel item = hobbyList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getEventId());
         bundle.putString("event_name", item.getEventName());
-        bundle.putString("category_name", db.getCategory(item.getCategoryId()));
         bundle.putLong("total_ms", item.getTotalMS());
         AddNewHobbyFragment fragment = AddNewHobbyFragment.newInstance();
         fragment.setArguments(bundle);
         fragment.show(activity.getSupportFragmentManager(), AddNewHobbyFragment.TAG);
     }
+
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

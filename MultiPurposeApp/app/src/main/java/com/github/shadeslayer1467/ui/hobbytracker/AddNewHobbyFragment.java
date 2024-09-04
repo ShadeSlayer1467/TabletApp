@@ -24,7 +24,6 @@ public class AddNewHobbyFragment extends DialogFragment {
     public static final String TAG = "AddNewHobbyFragment";
 
     private EditText hobbyNameEditText;
-    private EditText categoryEditText;
     private EditText totalMSEditText;
     private Button saveButton;
 
@@ -35,7 +34,6 @@ public class AddNewHobbyFragment extends DialogFragment {
     public static AddNewHobbyFragment newInstance() {
         return new AddNewHobbyFragment();
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,6 @@ public class AddNewHobbyFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_hobbytracker_new_hobby, container, false);
 
         hobbyNameEditText = view.findViewById(R.id.hobbyNameEditText);
-        categoryEditText = view.findViewById(R.id.categoryEditText);
         totalMSEditText = view.findViewById(R.id.totalMSEditText);
         saveButton = view.findViewById(R.id.saveHobbyButton);
 
@@ -58,7 +55,6 @@ public class AddNewHobbyFragment extends DialogFragment {
             isUpdate = true;
             eventId = bundle.getInt("id");
             hobbyNameEditText.setText(bundle.getString("event_name"));
-            categoryEditText.setText(String.valueOf(bundle.getLong("category_name")));
             totalMSEditText.setText(String.valueOf(bundle.getLong("total_ms")));
         }
 
@@ -66,10 +62,8 @@ public class AddNewHobbyFragment extends DialogFragment {
 
         return view;
     }
-
     private void saveHobby() {
         String hobbyName = hobbyNameEditText.getText().toString();
-        String category = categoryEditText.getText().toString();
         String totalMsStr = totalMSEditText.getText().toString();
 
         if (TextUtils.isEmpty(hobbyName) || TextUtils.isEmpty(totalMsStr)) {
@@ -80,16 +74,15 @@ public class AddNewHobbyFragment extends DialogFragment {
         long totalMs = Long.parseLong(totalMsStr);
 
         if (isUpdate) {
-            EventModel event = new EventModel(eventId, hobbyName, 1, category, null, null, totalMs); // Assuming category ID 1 for now
+            EventModel event = new EventModel(eventId, hobbyName, 1, null, null, null, totalMs); // Assuming category ID 1 for now
             db.updateEvent(event);
         } else {
-            EventModel event = new EventModel(0, hobbyName, 1, category,null, null, totalMs);
+            EventModel event = new EventModel(0, hobbyName, 1, null, null, null, totalMs);
             db.createEvent(event);
         }
 
         dismiss();
     }
-
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);

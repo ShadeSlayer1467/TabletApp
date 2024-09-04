@@ -44,14 +44,6 @@ public class EventModel {
         this.categoryId = categoryId;
     }
 
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(int categoryId) {
-        this.categoryName = categoryName;
-    }
-
     public String getCreatedAt() {
         return createdAt;
     }

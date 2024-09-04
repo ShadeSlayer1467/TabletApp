@@ -19,20 +19,20 @@ public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallba
 
     private HobbyAdapter adapter;
 
-    public HobbiesRecyclerItemTouchHelper(HobbyAdapter adapter){
+    public HobbiesRecyclerItemTouchHelper(HobbyAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }
 
     @Override
-    public boolean onMove(RecyclerView recylerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target){
+    public boolean onMove(RecyclerView recylerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         return false;
     }
 
     @Override
-    public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction){
+    public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
         final int position = viewHolder.getAdapterPosition();
-        if(direction == ItemTouchHelper.LEFT){
+        if (direction == ItemTouchHelper.LEFT) {
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
             builder.setTitle("Delete Hobby");
             builder.setMessage("Are you sure you want to delete this hobby?");
@@ -105,3 +105,5 @@ public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallba
         icon.draw(c);
     }
 }
+
+

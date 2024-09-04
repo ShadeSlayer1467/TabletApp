@@ -13,13 +13,6 @@
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/categoryEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Category"
-        android:inputType="text" />
-
-    <EditText
         android:id="@+id/totalMSEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

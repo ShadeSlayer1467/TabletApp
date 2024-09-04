@@ -94,22 +94,22 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
     }
 
     @Override
-    public String getCategory(int categoryId) {
+    public String getCategory(int categoryID) {
         String categoryName = null;
         Cursor cursor = null;
         try {
-            cursor = db.query(CATEGORIES_TABLE, new String[]{CATEGORY_NAME}, ID + "=?", new String[]{String.valueOf(categoryId)}, null, null, null);
+            cursor = db.query(CATEGORIES_TABLE, new String[]{CATEGORY_NAME}, ID + "=?", new String[]{String.valueOf(categoryID)}, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 categoryName = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY_NAME));
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Handle exception
+            e.printStackTrace();
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
         }
-        return categoryName; // Return the name, or null if not found
+        return categoryName;
     }
 
     @Override
@@ -129,20 +129,13 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         Cursor cur = null;
 
         try {
-            String query = "SELECT " + EVENTS_TABLE + ".*, " + CATEGORIES_TABLE + "." + CATEGORY_NAME +
-                    " FROM " + EVENTS_TABLE +
-                    " LEFT JOIN " + CATEGORIES_TABLE +
-                    " ON " + EVENTS_TABLE + "." + CATEGORY_ID + " = " + CATEGORIES_TABLE + "." + ID +
-                    " WHERE " + EVENTS_TABLE + "." + ID + " = ?";
-
-            cur = db.rawQuery(query, new String[]{String.valueOf(eventId)});
+            cur = db.query(EVENTS_TABLE, null, ID + "=?", new String[]{String.valueOf(eventId)}, null, null, null);
 
             if (cur != null && cur.moveToFirst()) {
                 // Use getColumnIndexOrThrow for better error handling
                 int idIndex = cur.getColumnIndexOrThrow(ID);
                 int eventNameIndex = cur.getColumnIndexOrThrow(EVENT_NAME);
                 int categoryIdIndex = cur.getColumnIndexOrThrow(CATEGORY_ID);
-                int categoryName = cur.getColumnIndexOrThrow(CATEGORY_NAME);
                 int createdAtIndex = cur.getColumnIndexOrThrow(CREATED_AT);
                 int updatedAtIndex = cur.getColumnIndexOrThrow(UPDATED_AT);
                 int totalMSIndex = cur.getColumnIndexOrThrow(TOTAL_MS);
@@ -151,7 +144,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
                         cur.getInt(idIndex),
                         cur.getString(eventNameIndex),
                         cur.getInt(categoryIdIndex),
-                        cur.getString(categoryName),
+                        null,
                         cur.getString(createdAtIndex),
                         cur.getString(updatedAtIndex),
                         cur.getLong(totalMSIndex)
@@ -168,26 +161,19 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         return event;
     }
 
-
     @Override
     public List<EventModel> getAllEvents() {
         List<EventModel> eventList = new ArrayList<>();
         Cursor cur = null;
 
         try {
-            String query = "SELECT " + EVENTS_TABLE + ".*, " + CATEGORIES_TABLE + "." + CATEGORY_NAME +
-                    " FROM " + EVENTS_TABLE +
-                    " LEFT JOIN " + CATEGORIES_TABLE +
-                    " ON " + EVENTS_TABLE + "." + CATEGORY_ID + " = " + CATEGORIES_TABLE + "." + ID;
-
-            cur = db.rawQuery(query, null);
+            cur = db.query(EVENTS_TABLE, null, null, null, null, null, null);
 
             if (cur != null && cur.moveToFirst()) {
                 do {
                     int idIndex = cur.getColumnIndexOrThrow(ID);
                     int eventNameIndex = cur.getColumnIndexOrThrow(EVENT_NAME);
                     int categoryIdIndex = cur.getColumnIndexOrThrow(CATEGORY_ID);
-                    int categoryName = cur.getColumnIndexOrThrow(CATEGORY_NAME);
                     int createdAtIndex = cur.getColumnIndexOrThrow(CREATED_AT);
                     int updatedAtIndex = cur.getColumnIndexOrThrow(UPDATED_AT);
                     int totalMSIndex = cur.getColumnIndexOrThrow(TOTAL_MS);
@@ -196,7 +182,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
                             cur.getInt(idIndex),
                             cur.getString(eventNameIndex),
                             cur.getInt(categoryIdIndex),
-                            cur.getString(categoryName),
+                            null,
                             cur.getString(createdAtIndex),
                             cur.getString(updatedAtIndex),
                             cur.getLong(totalMSIndex)
@@ -214,33 +200,6 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
 
         return eventList;
     }
-
-
-    @Override
-    public void updateEvent(EventModel event) {
-        ContentValues cv = new ContentValues();
-        cv.put(EVENT_NAME, event.getEventName());
-        cv.put(CATEGORY_ID, event.getCategoryId());
-        cv.put(UPDATED_AT, event.getUpdatedAt());
-        cv.put(TOTAL_MS, event.getTotalMS());
-        db.update(EVENTS_TABLE, cv, ID + "=?", new String[]{String.valueOf(event.getEventId())});
-    }
-
-    @Override
-    public void deleteEvent(int eventId) {
-        db.delete(EVENTS_TABLE, ID + "=?", new String[]{String.valueOf(eventId)});
-    }
-
-    @Override
-    public void createSession(EventSessionModel session) {
-        ContentValues cv = new ContentValues();
-        cv.put(EVENT_ID, session.getEventId());
-        cv.put(START_TIME, session.getStartTime());
-        cv.put(END_TIME, session.getEndTime());
-        cv.put(DURATION, session.getDuration());
-        db.insert(SESSIONS_TABLE, null, cv);
-    }
-
     @Override
     public EventSessionModel getSession(int sessionId) {
         EventSessionModel session = null;
@@ -274,8 +233,28 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
 
         return session;
     }
-
-
+    @Override
+    public void updateEvent(EventModel event) {
+        ContentValues cv = new ContentValues();
+        cv.put(EVENT_NAME, event.getEventName());
+        cv.put(CATEGORY_ID, event.getCategoryId());
+        cv.put(UPDATED_AT, event.getUpdatedAt());
+        cv.put(TOTAL_MS, event.getTotalMS());
+        db.update(EVENTS_TABLE, cv, ID + "=?", new String[]{String.valueOf(event.getEventId())});
+    }
+    @Override
+    public void deleteEvent(int eventId) {
+        db.delete(EVENTS_TABLE, ID + "=?", new String[]{String.valueOf(eventId)});
+    }
+    @Override
+    public void createSession(EventSessionModel session) {
+        ContentValues cv = new ContentValues();
+        cv.put(EVENT_ID, session.getEventId());
+        cv.put(START_TIME, session.getStartTime());
+        cv.put(END_TIME, session.getEndTime());
+        cv.put(DURATION, session.getDuration());
+        db.insert(SESSIONS_TABLE, null, cv);
+    }
     @Override
     public List<EventSessionModel> getSessionsForEvent(int eventId) {
         List<EventSessionModel> sessionList = new ArrayList<>();
@@ -312,8 +291,6 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
 
         return sessionList;
     }
-
-
     @Override
     public void updateSession(EventSessionModel session) {
         ContentValues cv = new ContentValues();
@@ -322,7 +299,6 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         cv.put(DURATION, session.getDuration());
         db.update(SESSIONS_TABLE, cv, ID + "=?", new String[]{String.valueOf(session.getSessionId())});
     }
-
     @Override
     public void deleteSession(int sessionId) {
         db.delete(SESSIONS_TABLE, ID + "=?", new String[]{String.valueOf(sessionId)});
