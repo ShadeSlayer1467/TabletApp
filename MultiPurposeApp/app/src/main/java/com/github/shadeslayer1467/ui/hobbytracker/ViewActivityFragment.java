@@ -51,16 +51,16 @@ public class ViewActivityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hobbytracker_activity, container, false);
+        View view = inflater.inflate(R.layout.fragment_activitytracker_activity, container, false);
 
         db = new LocalEventDatabase(this.getActivity());
         db.openDatabase();
 
         // Initialize UI elements
-        activityNameTextView = view.findViewById(R.id.fragment_hobbytracker_activity_hobbyTitle);
-        totalTimeTextView = view.findViewById(R.id.fragment_hobbytracker_activity_totalTimeTextView);
-        sessionsRecyclerView = view.findViewById(R.id.fragment_hobbytracker_activity_sessionsRecyclerView);
-        addSessionButton = view.findViewById(R.id.fragment_hobbytracker_activity_addSessionButton);
+        activityNameTextView = view.findViewById(R.id.fragment_activitytracker_activity_activityTitle);
+        totalTimeTextView = view.findViewById(R.id.fragment_activitytracker_activity_totalTimeTextView);
+        sessionsRecyclerView = view.findViewById(R.id.fragment_activitytracker_activity_sessionsRecyclerView);
+        addSessionButton = view.findViewById(R.id.fragment_activitytracker_activity_addSessionButton);
 
         // Setup RecyclerView
         sessionAdapter = new SessionAdapter(sessionList);

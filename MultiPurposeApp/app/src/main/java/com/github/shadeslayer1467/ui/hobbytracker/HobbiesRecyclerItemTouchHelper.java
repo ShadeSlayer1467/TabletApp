@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.adapters.HobbyAdapter;
+import com.github.shadeslayer1467.ui.hobbytracker.adapters.ActivityAdapter;
 
 public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
-    private HobbyAdapter adapter;
+    private ActivityAdapter adapter;
 
-    public HobbiesRecyclerItemTouchHelper(HobbyAdapter adapter) {
+    public HobbiesRecyclerItemTouchHelper(ActivityAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }

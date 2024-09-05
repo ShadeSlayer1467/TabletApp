@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.MainActivity;
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.adapters.HobbyAdapter;
+import com.github.shadeslayer1467.ui.hobbytracker.adapters.ActivityAdapter;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.LocalEventDatabase;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
@@ -26,7 +26,7 @@ import java.util.List;
 public class HobbyTracker extends Fragment implements DialogCloseListener {
 
     private RecyclerView hobbiesRecyclerView;
-    private HobbyAdapter hobbiesAdapter;
+    private ActivityAdapter hobbiesAdapter;
     private FloatingActionButton fab;
 
     private List<EventModel> hobbiesList;
@@ -40,7 +40,7 @@ public class HobbyTracker extends Fragment implements DialogCloseListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_hobbytracker, container, false);
+        View view = inflater.inflate(R.layout.fragment_activitytracker, container, false);
 
         db = new LocalEventDatabase(this.getActivity());
         db.openDatabase();
@@ -48,14 +48,14 @@ public class HobbyTracker extends Fragment implements DialogCloseListener {
         // Initialize your task list here or in a separate method called during onCreateView
         hobbiesList = new ArrayList<>();
 
-        hobbiesRecyclerView = view.findViewById(R.id.hobbiesRecyclerView);
+        hobbiesRecyclerView = view.findViewById(R.id.activitiesRecyclerView);
         hobbiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Set up the adapter and RecyclerView
-        hobbiesAdapter = new HobbyAdapter(db, (MainActivity) this.getActivity());
+        hobbiesAdapter = new ActivityAdapter(db, (MainActivity) this.getActivity());
         hobbiesRecyclerView.setAdapter(hobbiesAdapter);
 
-        fab = view.findViewById(R.id.hobbiesFAB);
+        fab = view.findViewById(R.id.activitiesFAB);
 
         ItemTouchHelper itemTouchHelper = new
                 ItemTouchHelper(new HobbiesRecyclerItemTouchHelper(hobbiesAdapter));
@@ -85,7 +85,3 @@ public class HobbyTracker extends Fragment implements DialogCloseListener {
     }
 
 }
-/*
--After returning from the EditHobbyFragment, ensure the total time is updated based on the sessions.
--Use the DialogCloseListener to refresh the total time when a session has been changed.
- */

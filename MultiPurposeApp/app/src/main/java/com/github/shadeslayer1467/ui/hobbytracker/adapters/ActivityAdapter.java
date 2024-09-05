@@ -11,47 +11,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.shadeslayer1467.R;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
-import com.github.shadeslayer1467.ui.hobbytracker.EditHobbyFragment;
+import com.github.shadeslayer1467.ui.hobbytracker.ViewActivityFragment;
 import com.github.shadeslayer1467.MainActivity;
 
 import java.util.List;
 
-public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> {
+public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHolder> {
 
     private EventDatabase db;
-    private List<EventModel> hobbyList;
-    private final MainActivity activity;
+    private List<EventModel> activities;
+    private final MainActivity mainActivity;
 
-    public HobbyAdapter(EventDatabase db, MainActivity activity) {
+    public ActivityAdapter(EventDatabase db, MainActivity mainActivity) {
         this.db = db;
-        this.activity = activity;
+        this.mainActivity = mainActivity;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_hobbytracker_hobby_cardview, parent, false);
+                .inflate(R.layout.fragment_activitytracker_activity_cardview, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        EventModel hobby = hobbyList.get(position);
-        holder.hobbyTitle.setText(hobby.getEventName());
+        EventModel activity = activities.get(position);
+        holder.activityTitle.setText(activity.getEventName());
 
         // Set total time text
-        long totalMS = hobby.getTotalMS();
+        long totalMS = activity.getTotalMS();
         int hours = (int) (totalMS / (1000 * 60 * 60));
         int minutes = (int) ((totalMS / (1000 * 60)) % 60);
-        holder.hobbyTotalTime.setText(String.format("%d hrs %d mins", hours, minutes));
+        holder.activityTotalTime.setText(String.format("%d hrs %d mins", hours, minutes));
 
         // Navigate to edit screen when a hobby is clicked
         holder.itemView.setOnClickListener(v -> {
-            EditHobbyFragment editHobbyFragment = new EditHobbyFragment(hobby);
-            activity.getSupportFragmentManager()
+            ViewActivityFragment editActivityFragment = new ViewActivityFragment(activity);
+            mainActivity.getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main, editHobbyFragment)
+                    .replace(R.id.nav_host_fragment_content_main, editActivityFragment)
                     .addToBackStack(null)
                     .commit();
         });
@@ -59,28 +59,28 @@ public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return hobbyList.size();
+        return activities.size();
     }
 
-    public void setHobbies(List<EventModel> hobbyList) {
-        this.hobbyList = hobbyList;
+    public void setHobbies(List<EventModel> activities) {
+        this.activities = activities;
         notifyDataSetChanged();
     }
 
     public void deleteItem(int position) {
-        EventModel item = hobbyList.get(position);
+        EventModel item = activities.get(position);
         db.deleteEvent(item.getEventId());
-        hobbyList.remove(position);
+        activities.remove(position);
         notifyItemRemoved(position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView hobbyTitle, hobbyTotalTime;
+        TextView activityTitle, activityTotalTime;
 
         public ViewHolder(View view) {
             super(view);
-            hobbyTitle = view.findViewById(R.id.tvHobbyName);
-            hobbyTotalTime = view.findViewById(R.id.tvTotalTime);
+            activityTitle = view.findViewById(R.id.activity_cardview_activity_name);
+            activityTotalTime = view.findViewById(R.id.activity_cardview_activity_total_time);
         }
     }
 }
