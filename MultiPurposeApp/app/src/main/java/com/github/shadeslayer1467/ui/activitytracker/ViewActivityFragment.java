@@ -1,4 +1,4 @@
-package com.github.shadeslayer1467.ui.hobbytracker;
+package com.github.shadeslayer1467.ui.activitytracker;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.adapters.SessionAdapter;
-import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
-import com.github.shadeslayer1467.ui.hobbytracker.databases.LocalEventDatabase;
-import com.github.shadeslayer1467.ui.hobbytracker.dialogs.AddEditSessionDialog;
-import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
-import com.github.shadeslayer1467.ui.hobbytracker.models.EventSessionModel;
+import com.github.shadeslayer1467.ui.activitytracker.adapters.SessionAdapter;
+import com.github.shadeslayer1467.ui.activitytracker.databases.EventDatabase;
+import com.github.shadeslayer1467.ui.activitytracker.databases.LocalEventDatabase;
+import com.github.shadeslayer1467.ui.activitytracker.dialogs.AddEditSessionDialog;
+import com.github.shadeslayer1467.ui.activitytracker.models.EventModel;
+import com.github.shadeslayer1467.ui.activitytracker.models.EventSessionModel;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

@@ -1,4 +1,4 @@
-package com.github.shadeslayer1467.ui.hobbytracker;
+package com.github.shadeslayer1467.ui.activitytracker;
 
 import android.content.DialogInterface;
 

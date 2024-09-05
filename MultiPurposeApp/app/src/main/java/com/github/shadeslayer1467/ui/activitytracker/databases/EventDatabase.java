@@ -1,9 +1,7 @@
-package com.github.shadeslayer1467.ui.hobbytracker.databases;
+package com.github.shadeslayer1467.ui.activitytracker.databases;
 
-import android.database.sqlite.SQLiteOpenHelper;
-
-import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
-import com.github.shadeslayer1467.ui.hobbytracker.models.EventSessionModel;
+import com.github.shadeslayer1467.ui.activitytracker.models.EventModel;
+import com.github.shadeslayer1467.ui.activitytracker.models.EventSessionModel;
 
 import java.util.List;
 

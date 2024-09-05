@@ -1,4 +1,4 @@
-package com.github.shadeslayer1467.ui.hobbytracker;
+package com.github.shadeslayer1467.ui.activitytracker;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,8 +16,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.databases.LocalEventDatabase;
-import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
+import com.github.shadeslayer1467.ui.activitytracker.databases.LocalEventDatabase;
+import com.github.shadeslayer1467.ui.activitytracker.models.EventModel;
 
 public class AddNewActivityFragment extends DialogFragment {
 

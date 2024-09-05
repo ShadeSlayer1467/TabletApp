@@ -1,4 +1,4 @@
-package com.github.shadeslayer1467.ui.hobbytracker.adapters;
+package com.github.shadeslayer1467.ui.activitytracker.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
-import com.github.shadeslayer1467.ui.hobbytracker.AddNewActivityFragment;
-import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
-import com.github.shadeslayer1467.ui.hobbytracker.ViewActivityFragment;
+import com.github.shadeslayer1467.ui.activitytracker.databases.EventDatabase;
+import com.github.shadeslayer1467.ui.activitytracker.AddNewActivityFragment;
+import com.github.shadeslayer1467.ui.activitytracker.models.EventModel;
+import com.github.shadeslayer1467.ui.activitytracker.ViewActivityFragment;
 import com.github.shadeslayer1467.MainActivity;
 
 import java.util.List;

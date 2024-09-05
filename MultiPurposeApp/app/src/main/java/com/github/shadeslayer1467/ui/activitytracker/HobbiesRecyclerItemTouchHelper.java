@@ -1,4 +1,4 @@
-package com.github.shadeslayer1467.ui.hobbytracker;
+package com.github.shadeslayer1467.ui.activitytracker;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.adapters.ActivityAdapter;
+import com.github.shadeslayer1467.ui.activitytracker.adapters.ActivityAdapter;
 
 public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 

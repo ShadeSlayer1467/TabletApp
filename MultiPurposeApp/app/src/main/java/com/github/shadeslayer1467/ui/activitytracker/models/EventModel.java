@@ -1,4 +1,4 @@
-package com.github.shadeslayer1467.ui.hobbytracker.models;
+package com.github.shadeslayer1467.ui.activitytracker.models;
 
 import java.io.Serializable;
 

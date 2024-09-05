@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_clock" />
     <fragment
         android:id="@+id/nav_HobbyTracker"
-        android:name="com.github.shadeslayer1467.ui.hobbytracker.ActivityTracker"
+        android:name="com.github.shadeslayer1467.ui.activitytracker.ActivityTracker"
         android:label="@string/menu_Activity"
         tools:layout="@layout/fragment_activitytracker" />
 </navigation>
