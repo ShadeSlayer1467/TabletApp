@@ -1,6 +1,8 @@
 package com.github.shadeslayer1467.ui.hobbytracker.models;
 
-public class EventModel {
+import java.io.Serializable;
+
+public class EventModel implements Serializable {
     private int eventId;
     private String eventName;
     private int categoryId;

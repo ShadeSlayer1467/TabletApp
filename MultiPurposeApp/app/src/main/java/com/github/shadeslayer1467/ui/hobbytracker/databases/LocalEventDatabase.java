@@ -10,7 +10,6 @@ import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventSessionModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabase {
@@ -38,6 +37,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
     private static final String START_TIME = "start_time";
     private static final String END_TIME = "end_time";
     private static final String DURATION = "duration";
+    private static final String DELETED = "deleted";
 
     // EventCategories Table - column names
     private static final String CATEGORY_NAME = "category_name";
@@ -49,7 +49,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
             CATEGORY_ID + " INTEGER, " +
             CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
             UPDATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
-            TOTAL_MS + " INTEGER, " +
+            TOTAL_MS + " INTEGER DEFAULT 0, " +
             "FOREIGN KEY(" + CATEGORY_ID + ") REFERENCES " + CATEGORIES_TABLE + "(" + ID + ")" +
             ")";
 
@@ -59,6 +59,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
             START_TIME + " DATETIME, " +
             END_TIME + " DATETIME, " +
             DURATION + " INTEGER, " +
+            DELETED + " INTEGER, " +
             "FOREIGN KEY(" + EVENT_ID + ") REFERENCES " + EVENTS_TABLE + "(" + ID + ")" +
             ")";
 
@@ -214,13 +215,15 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
                 int startTimeIndex = cur.getColumnIndexOrThrow(START_TIME);
                 int endTimeIndex = cur.getColumnIndexOrThrow(END_TIME);
                 int durationIndex = cur.getColumnIndexOrThrow(DURATION);
+                int deletedIndex = cur.getColumnIndexOrThrow(DELETED);
 
                 session = new EventSessionModel(
                         cur.getInt(idIndex),
                         cur.getInt(eventIdIndex),
                         cur.getString(startTimeIndex),
                         cur.getString(endTimeIndex),
-                        cur.getInt(durationIndex)
+                        cur.getInt(durationIndex),
+                        (cur.getInt(deletedIndex) != 0) // if 0, deleted = false
                 );
             }
         } catch (Exception e) {
@@ -256,12 +259,13 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         db.insert(SESSIONS_TABLE, null, cv);
     }
     @Override
-    public List<EventSessionModel> getSessionsForEvent(int eventId) {
+    public List<EventSessionModel> getSessionsForEvent(int eventId, boolean getDeleted) {
         List<EventSessionModel> sessionList = new ArrayList<>();
         Cursor cur = null;
 
         try {
-            cur = db.query(SESSIONS_TABLE, null, EVENT_ID + "=?", new String[]{String.valueOf(eventId)}, null, null, null);
+            if (getDeleted)cur = db.query(SESSIONS_TABLE, null, EVENT_ID + "=?", new String[]{String.valueOf(eventId)}, null, null, null);
+            else cur = db.query(SESSIONS_TABLE, null, EVENT_ID + "=? AND deleted=0", new String[]{String.valueOf(eventId)}, null, null, null);
 
             if (cur != null && cur.moveToFirst()) {
                 do {
@@ -270,13 +274,15 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
                     int startTimeIndex = cur.getColumnIndexOrThrow(START_TIME);
                     int endTimeIndex = cur.getColumnIndexOrThrow(END_TIME);
                     int durationIndex = cur.getColumnIndexOrThrow(DURATION);
+                    int deletedIndex = cur.getColumnIndexOrThrow(DELETED);
 
                     EventSessionModel session = new EventSessionModel(
                             cur.getInt(idIndex),
                             cur.getInt(eventIdIndex),
                             cur.getString(startTimeIndex),
                             cur.getString(endTimeIndex),
-                            cur.getInt(durationIndex)
+                            cur.getInt(durationIndex),
+                            (cur.getInt(deletedIndex) != 0)
                     );
                     sessionList.add(session);
                 } while (cur.moveToNext());
@@ -297,10 +303,16 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         cv.put(START_TIME, session.getStartTime());
         cv.put(END_TIME, session.getEndTime());
         cv.put(DURATION, session.getDuration());
+        cv.put(DELETED, session.isDeleted());
         db.update(SESSIONS_TABLE, cv, ID + "=?", new String[]{String.valueOf(session.getSessionId())});
     }
     @Override
     public void deleteSession(int sessionId) {
         db.delete(SESSIONS_TABLE, ID + "=?", new String[]{String.valueOf(sessionId)});
+    }
+    public void markSessionAsDeleted(int sessionId) {
+        ContentValues values = new ContentValues();
+        values.put("deleted", 1); // Mark session as deleted
+        db.update("event_sessions", values, "session_id=?", new String[]{String.valueOf(sessionId)});
     }
 }

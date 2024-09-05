@@ -15,6 +15,7 @@ import java.util.List;
 import com.github.shadeslayer1467.MainActivity;
 import com.github.shadeslayer1467.R;
 import com.github.shadeslayer1467.ui.hobbytracker.AddNewHobbyFragment;
+import com.github.shadeslayer1467.ui.hobbytracker.EditHobbyFragment;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
 
@@ -51,6 +52,10 @@ public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> 
         String totalTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
 
         holder.totalTime.setText(totalTime);
+
+
+        // Handle item click to navigate to the edit screen
+        holder.itemView.setOnClickListener(v -> navigateToEditHobbyScreen(hobby));
     }
 
     @Override
@@ -81,9 +86,17 @@ public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> 
         fragment.show(activity.getSupportFragmentManager(), AddNewHobbyFragment.TAG);
     }
 
+    private void navigateToEditHobbyScreen(EventModel hobby) {
+        // Navigate to the EditHobbyFragment and pass the selected hobby (via Bundle or ViewModel)
+        EditHobbyFragment editHobbyFragment = EditHobbyFragment.newInstance(hobby);
 
-
-
+        // todo: get this working
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment_content_main, editHobbyFragment)
+                .addToBackStack(null)
+                .commit();
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView hobbyName;
         TextView totalTime;
@@ -95,3 +108,7 @@ public class HobbyAdapter extends RecyclerView.Adapter<HobbyAdapter.ViewHolder> 
         }
     }
 }
+/*
+-When the user clicks on a hobby, the app should navigate to the EditHobbyFragment.
+-After sessions are added/edited/deleted, update the total time for the hobby and reflect the changes in the RecyclerView.
+ */

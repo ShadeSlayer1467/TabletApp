@@ -39,6 +39,7 @@ public class AddNewHobbyFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         db = new LocalEventDatabase(getContext());
         db.openDatabase();
+        //setStyle(STYLE_NORMAL, R.style.DialogStyle);
     }
 
     @Nullable

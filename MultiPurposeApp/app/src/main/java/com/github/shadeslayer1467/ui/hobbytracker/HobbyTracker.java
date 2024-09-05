@@ -70,6 +70,12 @@ public class HobbyTracker extends Fragment implements DialogCloseListener {
 
         return view;
     }
+    public void refreshHobbyList() {
+        hobbiesList = db.getAllEvents();
+        Collections.reverse(hobbiesList);
+        hobbiesAdapter.setHobbies(hobbiesList);
+        hobbiesAdapter.notifyDataSetChanged();
+    }
     @Override
     public void handleDialogClose(DialogInterface dialog){
         hobbiesList = db.getAllEvents();
@@ -79,3 +85,7 @@ public class HobbyTracker extends Fragment implements DialogCloseListener {
     }
 
 }
+/*
+-After returning from the EditHobbyFragment, ensure the total time is updated based on the sessions.
+-Use the DialogCloseListener to refresh the total time when a session has been changed.
+ */

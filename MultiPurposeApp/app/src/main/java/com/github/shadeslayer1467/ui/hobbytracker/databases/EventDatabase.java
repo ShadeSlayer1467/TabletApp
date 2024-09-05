@@ -22,8 +22,8 @@ public interface EventDatabase {
     // Event session operations
     void createSession(EventSessionModel session);
     EventSessionModel getSession(int sessionId);
-    List<EventSessionModel> getSessionsForEvent(int eventId);
+    List<EventSessionModel> getSessionsForEvent(int eventId, boolean getDeleted);
     void updateSession(EventSessionModel session);
     void deleteSession(int sessionId);
-
+    public void markSessionAsDeleted(int sessionId);
 }

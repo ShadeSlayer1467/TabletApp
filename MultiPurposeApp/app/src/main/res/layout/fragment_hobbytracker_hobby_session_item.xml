@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@color/colorPrimaryDark">
+
+        <!-- Start Time -->
+        <TextView
+            android:id="@+id/fragment_hobbytracker_hobby_session_item_sessionStartTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Start: 10:00 AM"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <!-- End Time -->
+        <TextView
+            android:id="@+id/fragment_hobbytracker_hobby_session_item_sessionEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="End: 11:00 AM"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_item_sessionStartTime"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Duration -->
+        <TextView
+            android:id="@+id/fragment_hobbytracker_hobby_session_item_sessionDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60 mins"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Edit Button -->
+        <ImageButton
+            android:id="@+id/fragment_hobbytracker_hobby_session_item_editSessionButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Edit Session"
+            android:src="@drawable/ic_baseline_edit"
+        app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_item_sessionEndTime"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"/>
+
+        <!-- Delete Button -->
+        <ImageButton
+            android:id="@+id/deleteSessionButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Delete Session"
+            android:src="@drawable/ic_baseline_delete"
+        app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_item_sessionEndTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+    <!--
+    -Displays start time, end time, and duration for each session.
+    -Style deleted sessions differently.
+    -->
