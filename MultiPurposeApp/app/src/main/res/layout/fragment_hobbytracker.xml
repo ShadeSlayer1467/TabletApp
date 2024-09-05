@@ -23,7 +23,7 @@
         android:layout_below="@+id/hobbiesText"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:nestedScrollingEnabled="true"
-        tools:listitem="@layout/fragment_hobbytracker_hobby_cardview"/>
+        tools:listitem="@layout/fragment_hobbytracker_activity_cardview"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/hobbiesFAB"

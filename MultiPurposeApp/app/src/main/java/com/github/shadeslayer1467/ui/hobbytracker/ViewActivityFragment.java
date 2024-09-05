@@ -1,6 +1,5 @@
 package com.github.shadeslayer1467.ui.hobbytracker;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.shadeslayer1467.MainActivity;
 import com.github.shadeslayer1467.R;
-import com.github.shadeslayer1467.ui.hobbytracker.adapters.HobbyAdapter;
 import com.github.shadeslayer1467.ui.hobbytracker.adapters.SessionAdapter;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.LocalEventDatabase;
+import com.github.shadeslayer1467.ui.hobbytracker.dialogs.AddEditSessionDialog;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventSessionModel;
-import com.github.shadeslayer1467.ui.hobbytracker.dialogs.AddEditSessionDialog;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,22 +26,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EditHobbyFragment extends Fragment {
+public class ViewActivityFragment extends Fragment {
 
     private RecyclerView sessionsRecyclerView;
     private SessionAdapter sessionAdapter;
     private FloatingActionButton addSessionButton;
 
+    private TextView activityNameTextView;
     private TextView totalTimeTextView;
-    private int eventId;
+    private EventModel activityModel;
 
     private List<EventSessionModel> sessionList;
     private EventDatabase db;
 
-    public EditHobbyFragment(int eventId) {
+    public ViewActivityFragment(EventModel activityModel) {
         // Required empty public constructor
-        this.eventId = eventId;
+        this.activityModel = activityModel;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,47 +51,42 @@ public class EditHobbyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hobbytracker_hobby_edit, container, false);
+        View view = inflater.inflate(R.layout.fragment_hobbytracker_activity, container, false);
 
         db = new LocalEventDatabase(this.getActivity());
         db.openDatabase();
 
         // Initialize UI elements
-        totalTimeTextView = view.findViewById(R.id.fragment_hobbytracker_hobby_edit_totalTimeTextView);
-        sessionsRecyclerView = view.findViewById(R.id.fragment_hobbytracker_hobby_edit_sessionsRecyclerView);
-        addSessionButton = view.findViewById(R.id.fragment_hobbytracker_hobby_edit_addSessionButton);
+        activityNameTextView = view.findViewById(R.id.fragment_hobbytracker_activity_hobbyTitle);
+        totalTimeTextView = view.findViewById(R.id.fragment_hobbytracker_activity_totalTimeTextView);
+        sessionsRecyclerView = view.findViewById(R.id.fragment_hobbytracker_activity_sessionsRecyclerView);
+        addSessionButton = view.findViewById(R.id.fragment_hobbytracker_activity_addSessionButton);
 
         // Setup RecyclerView
-        sessionAdapter = new SessionAdapter(sessionList, this::onSessionClick); // Handle session clicks
+        sessionAdapter = new SessionAdapter(sessionList);
         sessionsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         sessionsRecyclerView.setAdapter(sessionAdapter);
 
         sessionList = new ArrayList<>();
-        sessionList = db.getSessionsForEvent(eventId, false);
+        sessionList = db.getSessionsForEvent(activityModel.getEventId(), false);
         Collections.reverse(sessionList);
         sessionAdapter.setSessions(sessionList);
 
-        updateTotalTime();
-
+        // Setup Add Session Button
         addSessionButton.setOnClickListener(v -> openAddSessionDialog());
+
+        // Init Activity Details
+        updateTotalTime();
+        activityNameTextView.setText(activityModel.getEventName());
 
         return view;
     }
 
-    private void onSessionClick(EventSessionModel session) {
-        openEditSessionDialog(session);
-    }
-
     private void openAddSessionDialog() {
-        AddEditSessionDialog addDialog = AddEditSessionDialog.newInstance(null); // Pass null for adding a new session
-        addDialog.setTargetFragment(EditHobbyFragment.this, 1);
+        AddEditSessionDialog addDialog = AddEditSessionDialog.newInstance(null);
+        addDialog.setTargetFragment(ViewActivityFragment.this, 1);
         addDialog.show(getParentFragmentManager(), AddEditSessionDialog.TAG);
-    }
-
-    private void openEditSessionDialog(EventSessionModel session) {
-        AddEditSessionDialog editDialog = AddEditSessionDialog.newInstance(session);
-        editDialog.setTargetFragment(EditHobbyFragment.this, 1);
-        editDialog.show(getParentFragmentManager(), AddEditSessionDialog.TAG);
+        updateTotalTime();
     }
 
     private void updateTotalTime() {

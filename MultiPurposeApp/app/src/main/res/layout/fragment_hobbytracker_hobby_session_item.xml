@@ -63,7 +63,7 @@
 
         <!-- Delete Button -->
         <ImageButton
-            android:id="@+id/deleteSessionButton"
+            android:id="@+id/fragment_hobbytracker_hobby_session_item_deleteSessionButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
