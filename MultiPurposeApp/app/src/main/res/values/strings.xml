@@ -12,7 +12,7 @@
     <string name="menu_slideshow">Slideshow</string>menu_stopwatch
     <string name="menu_todoapp">Task List</string>
     <string name="menu_Clock">Clock</string>
-    <string name="menu_Hobby">Hobby Tracker</string>
+    <string name="menu_Activity">Activity Tracker</string>
 
     <string name="todoText">Tasks</string>
 
@@ -28,6 +28,6 @@
     <string name="clockStopwatchStart">Start</string>
     <string name="clockStopwatchStop">Stop</string>
 
-    <!-- Hobby Fragment-->
-    <string name="hobbiesText">Hobbies</string>
+    <!-- Activity Fragment-->
+    <string name="activityText">Activities</string>
 </resources>

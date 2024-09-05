@@ -6,22 +6,22 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/hobbyNameEditText"
+        android:id="@+id/fragment_activitytracker_new_activity_activityNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Hobby Name"
+        android:hint="Activity Name"
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/totalMSEditText"
+        android:id="@+id/fragment_activitytracker_new_activity_totalMSEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Total Time Spent (ms)"
         android:inputType="number" />
 
     <Button
-        android:id="@+id/saveHobbyButton"
+        android:id="@+id/fragment_activitytracker_new_activity_saveActivityButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Hobby" />
+        android:text="Save Activity" />
 </LinearLayout>

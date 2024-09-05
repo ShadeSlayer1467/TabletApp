@@ -6,27 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/hobbiesText"
+        android:id="@+id/activityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="@string/hobbiesText"
+        android:text="@string/activityText"
         android:textColor="@color/white"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
         android:textSize="32sp"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/hobbiesRecyclerView"
+        android:id="@+id/activitiesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hobbiesText"
+        android:layout_below="@+id/activityText"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:nestedScrollingEnabled="true"
-        tools:listitem="@layout/fragment_hobbytracker_activity_cardview"/>
+        tools:listitem="@layout/fragment_activitytracker_activity_cardview"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/hobbiesFAB"
+        android:id="@+id/activitiesFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

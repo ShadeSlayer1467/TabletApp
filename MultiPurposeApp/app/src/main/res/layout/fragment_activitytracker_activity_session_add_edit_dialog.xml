@@ -13,7 +13,7 @@
 
         <!-- Start Time Label -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_startTimeLabel"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_startTimeLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Start Time"
@@ -24,16 +24,16 @@
 
         <!-- Start Time Picker -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_startTimeInputLayout"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_startTimeInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_startTimeLabel"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_startTimeLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_startTimeEditText"
+                android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_startTimeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select Start Time"
@@ -45,28 +45,28 @@
 
         <!-- End Time Label -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_endTimeLabel"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_endTimeLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="End Time"
             android:textSize="16sp"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_startTimeInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_startTimeInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp"/>
 
         <!-- End Time Picker -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_endTimeInputLayout"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_endTimeInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_endTimeLabel"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_endTimeLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_endTimeEditText"
+                android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_endTimeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Select End Time"
@@ -78,26 +78,26 @@
 
         <!-- Duration Label -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_durationLabel"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_durationLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Duration (minutes)"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_endTimeInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_endTimeInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp"/>
 
         <!-- Duration Input -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_durationValue"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_durationValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="00:00:00"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_durationLabel"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_durationLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
@@ -105,26 +105,26 @@
 
         <!-- Save Button -->
         <Button
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_saveSessionButton"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_saveSessionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Save"
             android:textColor="@color/colorPrimary"
             android:backgroundTint="@color/colorPrimaryDark"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_durationValue"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_durationValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"/>
 
         <!-- Cancel Button -->
         <Button
-            android:id="@+id/fragment_hobbytracker_hobby_session_add_edit_dialog_cancelSessionButton"
+            android:id="@+id/fragment_activitytracker_activity_session_add_edit_dialog_cancelSessionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:textColor="@color/colorPrimary"
             android:backgroundTint="@color/colorPrimaryDark"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_add_edit_dialog_saveSessionButton"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_saveSessionButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>

@@ -36,6 +36,6 @@
     <fragment
         android:id="@+id/nav_HobbyTracker"
         android:name="com.github.shadeslayer1467.ui.hobbytracker.HobbyTracker"
-        android:label="@string/menu_Hobby"
-        tools:layout="@layout/fragment_hobbytracker" />
+        android:label="@string/menu_Activity"
+        tools:layout="@layout/fragment_activitytracker" />
 </navigation>

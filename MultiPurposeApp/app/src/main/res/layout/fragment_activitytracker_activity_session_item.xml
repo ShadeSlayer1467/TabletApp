@@ -17,7 +17,7 @@
 
         <!-- Start Time -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_item_sessionStartTime"
+            android:id="@+id/fragment_activitytracker_activity_session_item_sessionStartTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Start: 10:00 AM"
@@ -28,19 +28,19 @@
 
         <!-- End Time -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_item_sessionEndTime"
+            android:id="@+id/fragment_activitytracker_activity_session_item_sessionEndTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="End: 11:00 AM"
             android:textSize="14sp"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_item_sessionStartTime"
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionStartTime"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="4dp"/>
 
         <!-- Duration -->
         <TextView
-            android:id="@+id/fragment_hobbytracker_hobby_session_item_sessionDuration"
+            android:id="@+id/fragment_activitytracker_activity_session_item_sessionDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="60 mins"
@@ -51,25 +51,25 @@
 
         <!-- Edit Button -->
         <ImageButton
-            android:id="@+id/fragment_hobbytracker_hobby_session_item_editSessionButton"
+            android:id="@+id/fragment_activitytracker_activity_session_item_editSessionButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Edit Session"
             android:src="@drawable/ic_baseline_edit"
-        app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_item_sessionEndTime"
+        app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionEndTime"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="8dp"/>
 
         <!-- Delete Button -->
         <ImageButton
-            android:id="@+id/fragment_hobbytracker_hobby_session_item_deleteSessionButton"
+            android:id="@+id/fragment_activitytracker_activity_session_item_deleteSessionButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Delete Session"
             android:src="@drawable/ic_baseline_delete"
-        app:layout_constraintTop_toBottomOf="@id/fragment_hobbytracker_hobby_session_item_sessionEndTime"
+        app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionEndTime"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
