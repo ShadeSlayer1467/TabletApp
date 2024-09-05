@@ -19,7 +19,7 @@ import com.github.shadeslayer1467.R;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.LocalEventDatabase;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
 
-public class AddNewHobbyFragment extends DialogFragment {
+public class AddNewActivityFragment extends DialogFragment {
 
     public static final String TAG = "AddNewHobbyFragment";
 
@@ -31,8 +31,8 @@ public class AddNewHobbyFragment extends DialogFragment {
     private boolean isUpdate = false;
     private int eventId = -1;
 
-    public static AddNewHobbyFragment newInstance() {
-        return new AddNewHobbyFragment();
+    public static AddNewActivityFragment newInstance() {
+        return new AddNewActivityFragment();
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class AddNewHobbyFragment extends DialogFragment {
             eventId = bundle.getInt("id");
             hobbyNameEditText.setText(bundle.getString("event_name"));
             totalMSEditText.setText(String.valueOf(bundle.getLong("total_ms")));
+            totalMSEditText.setEnabled(false);
         }
 
         saveButton.setOnClickListener(v -> saveHobby());

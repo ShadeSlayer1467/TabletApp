@@ -247,8 +247,20 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
     }
     @Override
     public void deleteEvent(int eventId) {
-        db.delete(EVENTS_TABLE, ID + "=?", new String[]{String.valueOf(eventId)});
+        db.beginTransaction();
+        try {
+            ContentValues sessionValues = new ContentValues();
+            sessionValues.put(DELETED, 1);
+            db.update(SESSIONS_TABLE, sessionValues, "event_id=?", new String[]{String.valueOf(eventId)});
+
+            db.delete(EVENTS_TABLE, ID + "=?", new String[]{String.valueOf(eventId)});
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
     }
+
     @Override
     public void createSession(EventSessionModel session) {
         ContentValues cv = new ContentValues();

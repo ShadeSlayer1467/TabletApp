@@ -23,16 +23,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HobbyTracker extends Fragment implements DialogCloseListener {
+public class ActivityTracker extends Fragment implements DialogCloseListener {
 
-    private RecyclerView hobbiesRecyclerView;
-    private ActivityAdapter hobbiesAdapter;
+    private RecyclerView activitiesRecyclerView;
+    private ActivityAdapter activitiesAdapter;
     private FloatingActionButton fab;
 
-    private List<EventModel> hobbiesList;
+    private List<EventModel> activitiesList;
     private EventDatabase db;
 
-    public HobbyTracker() {
+    public ActivityTracker() {
         // Required empty public constructor
     }
 
@@ -46,42 +46,42 @@ public class HobbyTracker extends Fragment implements DialogCloseListener {
         db.openDatabase();
 
         // Initialize your task list here or in a separate method called during onCreateView
-        hobbiesList = new ArrayList<>();
+        activitiesList = new ArrayList<>();
 
-        hobbiesRecyclerView = view.findViewById(R.id.activitiesRecyclerView);
-        hobbiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        activitiesRecyclerView = view.findViewById(R.id.activitiesRecyclerView);
+        activitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Set up the adapter and RecyclerView
-        hobbiesAdapter = new ActivityAdapter(db, (MainActivity) this.getActivity());
-        hobbiesRecyclerView.setAdapter(hobbiesAdapter);
+        activitiesAdapter = new ActivityAdapter(db, (MainActivity) this.getActivity());
+        activitiesRecyclerView.setAdapter(activitiesAdapter);
 
         fab = view.findViewById(R.id.activitiesFAB);
 
         ItemTouchHelper itemTouchHelper = new
-                ItemTouchHelper(new HobbiesRecyclerItemTouchHelper(hobbiesAdapter));
-        itemTouchHelper.attachToRecyclerView(hobbiesRecyclerView);
+                ItemTouchHelper(new HobbiesRecyclerItemTouchHelper(activitiesAdapter));
+        itemTouchHelper.attachToRecyclerView(activitiesRecyclerView);
 
         // Populate the task list with existing tasks if needed
-        hobbiesList = db.getAllEvents();
-        Collections.reverse(hobbiesList);
-        hobbiesAdapter.setHobbies(hobbiesList);
+        activitiesList = db.getAllEvents();
+        Collections.reverse(activitiesList);
+        activitiesAdapter.setActivities(activitiesList);
 
-        fab.setOnClickListener(view1 -> AddNewHobbyFragment.newInstance().show(getParentFragmentManager(), AddNewHobbyFragment.TAG));
+        fab.setOnClickListener(view1 -> AddNewActivityFragment.newInstance().show(getParentFragmentManager(), AddNewActivityFragment.TAG));
 
         return view;
     }
-    public void refreshHobbyList() {
-        hobbiesList = db.getAllEvents();
-        Collections.reverse(hobbiesList);
-        hobbiesAdapter.setHobbies(hobbiesList);
-        hobbiesAdapter.notifyDataSetChanged();
+    public void refreshActivityList() {
+        activitiesList = db.getAllEvents();
+        Collections.reverse(activitiesList);
+        activitiesAdapter.setActivities(activitiesList);
+        activitiesAdapter.notifyDataSetChanged();
     }
     @Override
     public void handleDialogClose(DialogInterface dialog){
-        hobbiesList = db.getAllEvents();
-        Collections.reverse(hobbiesList);
-        hobbiesAdapter.setHobbies(hobbiesList);
-        hobbiesAdapter.notifyDataSetChanged();
+        activitiesList = db.getAllEvents();
+        Collections.reverse(activitiesList);
+        activitiesAdapter.setActivities(activitiesList);
+        activitiesAdapter.notifyDataSetChanged();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.github.shadeslayer1467.ui.hobbytracker.adapters;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
 import com.github.shadeslayer1467.ui.hobbytracker.databases.EventDatabase;
+import com.github.shadeslayer1467.ui.hobbytracker.AddNewActivityFragment;
 import com.github.shadeslayer1467.ui.hobbytracker.models.EventModel;
 import com.github.shadeslayer1467.ui.hobbytracker.ViewActivityFragment;
 import com.github.shadeslayer1467.MainActivity;
@@ -46,7 +49,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         int minutes = (int) ((totalMS / (1000 * 60)) % 60);
         holder.activityTotalTime.setText(String.format("%d hrs %d mins", hours, minutes));
 
-        // Navigate to edit screen when a hobby is clicked
+        // Navigate to edit screen when an Activity is clicked
         holder.itemView.setOnClickListener(v -> {
             ViewActivityFragment editActivityFragment = new ViewActivityFragment(activity);
             mainActivity.getSupportFragmentManager()
@@ -62,7 +65,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         return activities.size();
     }
 
-    public void setHobbies(List<EventModel> activities) {
+    public void setActivities(List<EventModel> activities) {
         this.activities = activities;
         notifyDataSetChanged();
     }
@@ -72,6 +75,21 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         db.deleteEvent(item.getEventId());
         activities.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public Context getContext() {
+        return getContext();
+    }
+
+    public void editItem(int position) {
+        EventModel item = activities.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", item.getEventId());
+        bundle.putString("event_name", item.getEventName());
+        bundle.putLong("total_ms", item.getTotalMS());
+        AddNewActivityFragment fragment = AddNewActivityFragment.newInstance();
+        fragment.setArguments(bundle);
+        fragment.show(mainActivity.getSupportFragmentManager(), AddNewActivityFragment.TAG);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

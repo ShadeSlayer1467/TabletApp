@@ -28,7 +28,6 @@ public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallba
     public boolean onMove(RecyclerView recylerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         return false;
     }
-
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
         final int position = viewHolder.getAdapterPosition();
@@ -62,7 +61,6 @@ public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallba
             adapter.editItem(position);
         }
     }
-
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -104,6 +102,8 @@ public class HobbiesRecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallba
         background.draw(c);
         icon.draw(c);
     }
+
+
 }
 
 
