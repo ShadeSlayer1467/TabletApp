@@ -1,5 +1,7 @@
 package com.github.shadeslayer1467.ui.activitytracker.adapters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
+import com.github.shadeslayer1467.ui.activitytracker.SessionActionListener;
+import com.github.shadeslayer1467.ui.activitytracker.databases.EventDatabase;
+import com.github.shadeslayer1467.ui.activitytracker.databases.LocalEventDatabase;
 import com.github.shadeslayer1467.ui.activitytracker.dialogs.AddEditSessionDialog;
 import com.github.shadeslayer1467.ui.activitytracker.models.EventSessionModel;
 
@@ -44,7 +49,34 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         holder.sessionEndTime.setText(formatTime(session.getEndTime()));
         holder.sessionDurationTime.setText(formatDuration(session.getStartTime(), session.getEndTime()));
 
-        holder.itemView.setOnClickListener(v -> {
+        holder.deleteSessionButton.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(parentFragment.getContext());
+            builder.setTitle("Delete Session");
+            builder.setMessage("Are you sure you want to delete this session?");
+            builder.setPositiveButton("Confirm",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            EventDatabase db = new LocalEventDatabase(parentFragment.getContext());
+                            db.openDatabase();
+                            db.deleteSession(session.getSessionId());
+                            sessionList.remove(session);
+                            if ((parentFragment) instanceof SessionActionListener) {
+                                ((SessionActionListener)parentFragment).onSessionDeleted(session.getSessionId());
+                            }
+                        }
+                    });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.setOnDismissListener(dialogInterface -> {
+            });
+            dialog.show();
+        });
+        holder.editSessionButton.setOnClickListener(v -> {
             AddEditSessionDialog dialog = AddEditSessionDialog.newInstance(session, session.getEventId());
             dialog.show(parentFragment.getParentFragmentManager(), "EditSessionDialog");
         });

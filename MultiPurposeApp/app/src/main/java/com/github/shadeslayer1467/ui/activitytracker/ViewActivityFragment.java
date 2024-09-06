@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ViewActivityFragment extends Fragment implements DialogCloseListener {
+public class ViewActivityFragment extends Fragment implements DialogCloseListener, SessionActionListener {
 
     private static final String ARG_ACTIVITY = "activity";
     private RecyclerView sessionsRecyclerView;
@@ -108,7 +108,11 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
         addDialog.show(getParentFragmentManager(), AddEditSessionDialog.TAG);
         updateTotalTime();
     }
-
+    @Override
+    public void onSessionDeleted(int sessionId) {
+        db.markSessionAsDeleted(sessionId);
+        refreshSessions();
+    }
     private void updateTotalTime() {
         long totalTime = 0;
         for (EventSessionModel session : sessionList) {
