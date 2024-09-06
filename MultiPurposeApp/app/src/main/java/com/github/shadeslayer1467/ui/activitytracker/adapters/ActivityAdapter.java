@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
@@ -23,11 +26,13 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
 
     private EventDatabase db;
     private List<EventModel> activities;
-    private final MainActivity mainActivity;
+    private final NavController navController;
+    private FragmentManager fragmentManager;
 
-    public ActivityAdapter(EventDatabase db, MainActivity mainActivity) {
+    public ActivityAdapter(EventDatabase db, NavController navController, FragmentManager fragmentManager) {
         this.db = db;
-        this.mainActivity = mainActivity;
+        this.navController = navController;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -51,12 +56,9 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
 
         // Navigate to edit screen when an Activity is clicked
         holder.itemView.setOnClickListener(v -> {
-            ViewActivityFragment editActivityFragment = new ViewActivityFragment(activity);
-            mainActivity.getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main, editActivityFragment)
-                    .addToBackStack(null)
-                    .commit();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("activity", activity); // Pass the activity details
+            navController.navigate(R.id.action_activityTracker_to_viewActivity, bundle);
         });
     }
 
@@ -89,7 +91,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         bundle.putLong("total_ms", item.getTotalMS());
         AddNewActivityFragment fragment = AddNewActivityFragment.newInstance();
         fragment.setArguments(bundle);
-        fragment.show(mainActivity.getSupportFragmentManager(), AddNewActivityFragment.TAG);
+        fragment.show(fragmentManager, AddNewActivityFragment.TAG);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

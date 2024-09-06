@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHostController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,8 +54,10 @@ public class ActivityTracker extends Fragment implements DialogCloseListener {
         activitiesRecyclerView = view.findViewById(R.id.activitiesRecyclerView);
         activitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        NavController navController = NavHostFragment.findNavController(this);
+
         // Set up the adapter and RecyclerView
-        activitiesAdapter = new ActivityAdapter(db, (MainActivity) this.getActivity());
+        activitiesAdapter = new ActivityAdapter(db, navController, this.getParentFragmentManager());
         activitiesRecyclerView.setAdapter(activitiesAdapter);
 
         fab = view.findViewById(R.id.activitiesFAB);

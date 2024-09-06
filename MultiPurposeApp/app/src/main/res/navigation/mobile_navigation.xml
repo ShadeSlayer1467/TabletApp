@@ -37,5 +37,15 @@
         android:id="@+id/nav_HobbyTracker"
         android:name="com.github.shadeslayer1467.ui.activitytracker.ActivityTracker"
         android:label="@string/menu_Activity"
-        tools:layout="@layout/fragment_activitytracker" />
+        tools:layout="@layout/fragment_activitytracker" >
+
+        <action
+            android:id="@+id/action_activityTracker_to_viewActivity"
+            app:destination="@id/viewActivityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewActivityFragment"
+        android:name="com.github.shadeslayer1467.ui.activitytracker.ViewActivityFragment"
+        android:label="View Activity"
+        tools:layout="@layout/fragment_activitytracker_activity"/>
 </navigation>

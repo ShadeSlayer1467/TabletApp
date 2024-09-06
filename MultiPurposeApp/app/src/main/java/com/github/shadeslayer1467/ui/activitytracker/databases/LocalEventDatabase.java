@@ -14,7 +14,7 @@ import java.util.List;
 
 public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabase {
 
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final String NAME = "HobbyTrackerDatabase";
 
     // Table Names
@@ -59,7 +59,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
             START_TIME + " DATETIME, " +
             END_TIME + " DATETIME, " +
             DURATION + " INTEGER, " +
-            DELETED + " INTEGER, " +
+            DELETED + " INTEGER DEFAULT 0, " +
             "FOREIGN KEY(" + EVENT_ID + ") REFERENCES " + EVENTS_TABLE + "(" + ID + ")" +
             ")";
 
@@ -83,6 +83,9 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion < 2) {  // Increment the version if necessary
+            db.execSQL("ALTER TABLE " + SESSIONS_TABLE + " ADD COLUMN " + DELETED + " INTEGER DEFAULT 0");
+        }
         db.execSQL("DROP TABLE IF EXISTS " + EVENTS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + SESSIONS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + CATEGORIES_TABLE);
@@ -268,6 +271,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         cv.put(START_TIME, session.getStartTime());
         cv.put(END_TIME, session.getEndTime());
         cv.put(DURATION, session.getDuration());
+        cv.put(DELETED, session.isDeleted() ? 1 : 0);
         db.insert(SESSIONS_TABLE, null, cv);
     }
     @Override
@@ -324,7 +328,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
     }
     public void markSessionAsDeleted(int sessionId) {
         ContentValues values = new ContentValues();
-        values.put("deleted", 1); // Mark session as deleted
-        db.update("event_sessions", values, "session_id=?", new String[]{String.valueOf(sessionId)});
+        values.put(DELETED, 1); // Mark session as deleted
+        db.update(SESSIONS_TABLE, values, ID + "=?", new String[]{String.valueOf(sessionId)});
     }
 }
