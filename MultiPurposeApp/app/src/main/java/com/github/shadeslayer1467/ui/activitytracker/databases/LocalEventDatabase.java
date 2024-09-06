@@ -331,4 +331,53 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         values.put(DELETED, 1); // Mark session as deleted
         db.update(SESSIONS_TABLE, values, ID + "=?", new String[]{String.valueOf(sessionId)});
     }
+    public void updateEventTotalTime(int eventId) {
+        Cursor cursor = null;
+        long totalDuration = 0;
+
+        try {
+            // Query to sum the duration of all sessions associated with the eventId
+            String query = "SELECT SUM(" + DURATION + ") AS duration FROM " + SESSIONS_TABLE +
+                    " WHERE " + EVENT_ID + "=? AND " + DELETED + "=0";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(eventId)});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int durationIndex = cursor.getColumnIndexOrThrow(DURATION);
+                totalDuration = cursor.getLong(durationIndex);
+            }
+            ContentValues values = new ContentValues();
+            values.put(TOTAL_MS, totalDuration);
+            db.update(EVENTS_TABLE, values, ID + "=?", new String[]{String.valueOf(eventId)});
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+    public void updateAllEventTotalTimes() {
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT " + ID + " FROM " + EVENTS_TABLE;
+            cursor = db.rawQuery(query, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    int eventId = cursor.getInt(cursor.getColumnIndexOrThrow(ID));
+                    updateEventTotalTime(eventId);
+                } while (cursor.moveToNext());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
 }

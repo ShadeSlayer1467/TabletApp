@@ -77,7 +77,9 @@ public class ActivityTracker extends Fragment implements DialogCloseListener {
                 ItemTouchHelper(new HobbiesRecyclerItemTouchHelper(activitiesAdapter));
         itemTouchHelper.attachToRecyclerView(activitiesRecyclerView);
 
+
         // Populate the task list with existing tasks if needed
+        db.updateAllEventTotalTimes();
         activitiesList = db.getAllEvents();
         Collections.reverse(activitiesList);
         activitiesAdapter.setActivities(activitiesList);

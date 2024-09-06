@@ -78,6 +78,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         });
         holder.editSessionButton.setOnClickListener(v -> {
             AddEditSessionDialog dialog = AddEditSessionDialog.newInstance(session, session.getEventId());
+            dialog.setTargetFragment(parentFragment, 1);
             dialog.show(parentFragment.getParentFragmentManager(), "EditSessionDialog");
         });
     }

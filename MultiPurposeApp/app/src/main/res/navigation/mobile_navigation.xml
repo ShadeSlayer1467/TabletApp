@@ -58,8 +58,8 @@
         tools:layout="@layout/fragment_activitytracker_activity"/>
     <dialog
         android:id="@+id/addEditActivityDialog"
-        android:name="com.github.shadeslayer1467.ui.activitytracker."
-        tools:layout="@layout/fragment_activitytracker_activity_session_add_edit_dialog">
+        android:name="com.github.shadeslayer1467.ui.activitytracker.AddNewActivityFragment"
+        tools:layout="@layout/fragment_activitytracker_new_activity">
         <argument
             android:name="activity"
             app:argType="com.github.shadeslayer1467.ui.activitytracker.models.EventModel"/>

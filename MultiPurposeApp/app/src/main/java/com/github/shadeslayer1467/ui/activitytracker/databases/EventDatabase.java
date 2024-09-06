@@ -16,6 +16,8 @@ public interface EventDatabase {
     List<EventModel> getAllEvents();
     void updateEvent(EventModel event);
     void deleteEvent(int eventId);
+    public void updateEventTotalTime(int eventId);
+    public void updateAllEventTotalTimes();
 
     // Event session operations
     void createSession(EventSessionModel session);
