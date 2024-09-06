@@ -28,8 +28,10 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
     private List<EventModel> activities;
     private final NavController navController;
     private FragmentManager fragmentManager;
+    private Context context;
 
-    public ActivityAdapter(EventDatabase db, NavController navController, FragmentManager fragmentManager) {
+    public ActivityAdapter(Context context, EventDatabase db, NavController navController, FragmentManager fragmentManager) {
+        this.context = context;
         this.db = db;
         this.navController = navController;
         this.fragmentManager = fragmentManager;
@@ -80,7 +82,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
     }
 
     public Context getContext() {
-        return getContext();
+        return context;
     }
 
     public void editItem(int position) {
@@ -89,9 +91,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         bundle.putInt("id", item.getEventId());
         bundle.putString("event_name", item.getEventName());
         bundle.putLong("total_ms", item.getTotalMS());
-        AddNewActivityFragment fragment = AddNewActivityFragment.newInstance();
-        fragment.setArguments(bundle);
-        fragment.show(fragmentManager, AddNewActivityFragment.TAG);
+        navController.navigate(R.id.action_activityTracker_to_addEditActivityDialog, bundle);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

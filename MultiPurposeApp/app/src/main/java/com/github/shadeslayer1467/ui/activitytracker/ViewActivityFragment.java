@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.shadeslayer1467.R;
 import com.github.shadeslayer1467.ui.activitytracker.adapters.SessionAdapter;
@@ -43,6 +44,8 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
 
     private List<EventSessionModel> sessionList;
     private EventDatabase db;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public ViewActivityFragment(){}
 
@@ -80,6 +83,13 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
         totalTimeTextView = view.findViewById(R.id.fragment_activitytracker_activity_totalTimeTextView);
         sessionsRecyclerView = view.findViewById(R.id.fragment_activitytracker_activity_sessionsRecyclerView);
         addSessionButton = view.findViewById(R.id.fragment_activitytracker_activity_addSessionButton);
+
+
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            refreshSessions();
+            swipeRefreshLayout.setRefreshing(false);
+        });
 
         // Setup RecyclerView
         sessionAdapter = new SessionAdapter(sessionList, this);

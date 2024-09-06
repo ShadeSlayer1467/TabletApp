@@ -42,10 +42,26 @@
         <action
             android:id="@+id/action_activityTracker_to_viewActivity"
             app:destination="@id/viewActivityFragment" />
+
+        <action
+            android:id="@+id/action_activityTracker_to_addEditActivityDialog"
+            app:destination="@id/addEditActivityDialog"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/viewActivityFragment"
         android:name="com.github.shadeslayer1467.ui.activitytracker.ViewActivityFragment"
         android:label="View Activity"
         tools:layout="@layout/fragment_activitytracker_activity"/>
+    <dialog
+        android:id="@+id/addEditActivityDialog"
+        android:name="com.github.shadeslayer1467.ui.activitytracker."
+        tools:layout="@layout/fragment_activitytracker_activity_session_add_edit_dialog">
+        <argument
+            android:name="activity"
+            app:argType="com.github.shadeslayer1467.ui.activitytracker.models.EventModel"/>
+    </dialog>
 </navigation>

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHostController;
@@ -38,7 +40,16 @@ public class ActivityTracker extends Fragment implements DialogCloseListener {
     public ActivityTracker() {
         // Required empty public constructor
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.getCurrentBackStackEntry().getSavedStateHandle().getLiveData("refresh")
+                .observe(getViewLifecycleOwner(), refresh -> {
+                    refreshActivityList();
+                });
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +68,7 @@ public class ActivityTracker extends Fragment implements DialogCloseListener {
         NavController navController = NavHostFragment.findNavController(this);
 
         // Set up the adapter and RecyclerView
-        activitiesAdapter = new ActivityAdapter(db, navController, this.getParentFragmentManager());
+        activitiesAdapter = new ActivityAdapter(getContext(),db, navController, this.getParentFragmentManager());
         activitiesRecyclerView.setAdapter(activitiesAdapter);
 
         fab = view.findViewById(R.id.activitiesFAB);
