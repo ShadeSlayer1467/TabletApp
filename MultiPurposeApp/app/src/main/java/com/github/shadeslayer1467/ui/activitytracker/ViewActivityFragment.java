@@ -97,7 +97,7 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
         sessionsRecyclerView.setAdapter(sessionAdapter);
 
         sessionList = new ArrayList<>();
-        sessionList = db.getSessionsForEvent(activityModel.getEventId(), true);
+        sessionList = db.getSessionsForEvent(activityModel.getEventId(), false);
         Collections.reverse(sessionList);
         sessionAdapter.setSessions(sessionList);
 
@@ -126,14 +126,14 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
     private void updateTotalTime() {
         long totalTime = 0;
         for (EventSessionModel session : sessionList) {
-            totalTime += session.getDuration();
+            if(!session.isDeleted()) totalTime += session.getDuration();
         }
         int hours = (int) (totalTime / (1000 * 60 * 60));
         int minutes = (int) ((totalTime / (1000 * 60)) % 60);
         totalTimeTextView.setText(String.format("Total Time: %d hrs %d mins", hours, minutes));
     }
     public void refreshSessions() {
-        sessionList = db.getSessionsForEvent(activityModel.getEventId(), true);
+        sessionList = db.getSessionsForEvent(activityModel.getEventId(), false);
         Collections.reverse(sessionList);
         sessionAdapter.setSessions(sessionList);
         sessionAdapter.notifyDataSetChanged();
@@ -142,7 +142,7 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
 
     @Override
     public void handleDialogClose(DialogInterface dialog) {
-        sessionList = db.getSessionsForEvent(activityModel.getEventId(),true);
+        sessionList = db.getSessionsForEvent(activityModel.getEventId(),false);
         Collections.reverse(sessionList);
         sessionAdapter.setSessions(sessionList);
         updateTotalTime();

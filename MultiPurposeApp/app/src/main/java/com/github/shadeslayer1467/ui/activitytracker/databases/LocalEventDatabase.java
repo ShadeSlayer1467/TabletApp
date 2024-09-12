@@ -254,7 +254,7 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         try {
             ContentValues sessionValues = new ContentValues();
             sessionValues.put(DELETED, 1);
-            db.update(SESSIONS_TABLE, sessionValues, "event_id=?", new String[]{String.valueOf(eventId)});
+            db.update(SESSIONS_TABLE, sessionValues, EVENT_ID + "=?", new String[]{String.valueOf(eventId)});
 
             db.delete(EVENTS_TABLE, ID + "=?", new String[]{String.valueOf(eventId)});
 
@@ -266,6 +266,11 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
 
     @Override
     public void createSession(EventSessionModel session) {
+        EventModel event = getEvent(session.getEventId());
+        if (event == null) return;
+        long totalDuration = event.getTotalMS();
+        if (!session.isDeleted()) totalDuration += session.getDuration();
+
         ContentValues cv = new ContentValues();
         cv.put(EVENT_ID, session.getEventId());
         cv.put(START_TIME, session.getStartTime());
@@ -273,6 +278,11 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
         cv.put(DURATION, session.getDuration());
         cv.put(DELETED, session.isDeleted() ? 1 : 0);
         db.insert(SESSIONS_TABLE, null, cv);
+
+        ContentValues eventCV = new ContentValues();
+        eventCV.put(TOTAL_MS, totalDuration);
+        eventCV.put(ID, event.getEventId());
+        db.update(EVENTS_TABLE, eventCV, ID + "=?", new String[]{String.valueOf(event.getEventId())});
     }
     @Override
     public List<EventSessionModel> getSessionsForEvent(int eventId, boolean getDeleted) {
@@ -281,30 +291,23 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
 
         try {
             if (getDeleted)cur = db.query(SESSIONS_TABLE, null, EVENT_ID + "=?", new String[]{String.valueOf(eventId)}, null, null, null);
-            else cur = db.query(SESSIONS_TABLE, null, EVENT_ID + "=? AND deleted=0", new String[]{String.valueOf(eventId)}, null, null, null);
+            else cur = db.query(SESSIONS_TABLE, null, EVENT_ID + "=? AND " + DELETED + "=0", new String[]{String.valueOf(eventId)}, null, null, null);
 
             if (cur != null && cur.moveToFirst()) {
                 do {
-                    int idIndex = cur.getColumnIndexOrThrow(ID);
-                    int eventIdIndex = cur.getColumnIndexOrThrow(EVENT_ID);
-                    int startTimeIndex = cur.getColumnIndexOrThrow(START_TIME);
-                    int endTimeIndex = cur.getColumnIndexOrThrow(END_TIME);
-                    int durationIndex = cur.getColumnIndexOrThrow(DURATION);
-                    int deletedIndex = cur.getColumnIndexOrThrow(DELETED);
-
                     EventSessionModel session = new EventSessionModel(
-                            cur.getInt(idIndex),
-                            cur.getInt(eventIdIndex),
-                            cur.getString(startTimeIndex),
-                            cur.getString(endTimeIndex),
-                            cur.getInt(durationIndex),
-                            (cur.getInt(deletedIndex) != 0)
+                            cur.getInt(cur.getColumnIndexOrThrow(ID)),
+                            cur.getInt(cur.getColumnIndexOrThrow(EVENT_ID)),
+                            cur.getString(cur.getColumnIndexOrThrow(START_TIME)),
+                            cur.getString(cur.getColumnIndexOrThrow(END_TIME)),
+                            cur.getInt(cur.getColumnIndexOrThrow(DURATION)),
+                            (cur.getInt(cur.getColumnIndexOrThrow(DELETED)) != 0)
                     );
                     sessionList.add(session);
                 } while (cur.moveToNext());
             }
         } catch (Exception e) {
-            e.printStackTrace();  // Log the exception to help with debugging
+            e.printStackTrace();
         } finally {
             if (cur != null) {
                 cur.close();
@@ -315,21 +318,53 @@ public class LocalEventDatabase extends SQLiteOpenHelper implements EventDatabas
     }
     @Override
     public void updateSession(EventSessionModel session) {
-        ContentValues cv = new ContentValues();
-        cv.put(START_TIME, session.getStartTime());
-        cv.put(END_TIME, session.getEndTime());
-        cv.put(DURATION, session.getDuration());
-        cv.put(DELETED, session.isDeleted());
-        db.update(SESSIONS_TABLE, cv, ID + "=?", new String[]{String.valueOf(session.getSessionId())});
+        EventModel event = getEvent(session.getEventId());
+        if (event == null) return;
+        long totalDuration = event.getTotalMS();
+
+        EventSessionModel originalSession = getSession(session.getSessionId());
+        if (originalSession != null) totalDuration -= originalSession.getDuration();
+
+        if (!session.isDeleted()) totalDuration += session.getDuration();
+
+        ContentValues sessionCV = new ContentValues();
+        sessionCV.put(ID, session.getSessionId());
+        sessionCV.put(START_TIME, session.getStartTime());
+        sessionCV.put(END_TIME, session.getEndTime());
+        sessionCV.put(DURATION, session.getDuration());
+        sessionCV.put(DELETED, session.isDeleted());
+        db.update(SESSIONS_TABLE, sessionCV, ID + "=?", new String[]{String.valueOf(session.getSessionId())});
+
+        ContentValues eventCV = new ContentValues();
+        eventCV.put(TOTAL_MS, totalDuration);
+        eventCV.put(ID, event.getEventId());
+        db.update(EVENTS_TABLE, eventCV, ID + "=?", new String[]{String.valueOf(event.getEventId())});
     }
     @Override
     public void deleteSession(int sessionId) {
+        EventSessionModel session = getSession(sessionId);
+        EventModel event = getEvent(session.getEventId());
+        if (event == null || session == null) return;
+
         db.delete(SESSIONS_TABLE, ID + "=?", new String[]{String.valueOf(sessionId)});
+
+        ContentValues eventCV = new ContentValues();
+        eventCV.put(TOTAL_MS, (event.getTotalMS() - session.getDuration()));
+        eventCV.put(ID, event.getEventId());
+        db.update(EVENTS_TABLE, eventCV, ID + "=?", new String[]{String.valueOf(event.getEventId())});
     }
     public void markSessionAsDeleted(int sessionId) {
+        EventSessionModel session = getSession(sessionId);
+        EventModel event = getEvent(session.getEventId());
+        if (event == null || session == null) return;
         ContentValues values = new ContentValues();
         values.put(DELETED, 1); // Mark session as deleted
         db.update(SESSIONS_TABLE, values, ID + "=?", new String[]{String.valueOf(sessionId)});
+
+        ContentValues eventCV = new ContentValues();
+        eventCV.put(TOTAL_MS, (event.getTotalMS() - session.getDuration()));
+        eventCV.put(ID, event.getEventId());
+        db.update(EVENTS_TABLE, eventCV, ID + "=?", new String[]{String.valueOf(event.getEventId())});
     }
     public void updateEventTotalTime(int eventId) {
         Cursor cursor = null;

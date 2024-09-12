@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.shadeslayer1467.R;
 import com.github.shadeslayer1467.ui.activitytracker.SessionActionListener;
-import com.github.shadeslayer1467.ui.activitytracker.databases.EventDatabase;
-import com.github.shadeslayer1467.ui.activitytracker.databases.LocalEventDatabase;
 import com.github.shadeslayer1467.ui.activitytracker.dialogs.AddEditSessionDialog;
 import com.github.shadeslayer1467.ui.activitytracker.models.EventSessionModel;
 
@@ -45,8 +42,8 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
         EventSessionModel session = sessionList.get(position);
 
         // Set session details on the view
-        holder.sessionStartTime.setText(formatTime(session.getStartTime()));
-        holder.sessionEndTime.setText(formatTime(session.getEndTime()));
+        holder.sessionStartTime.setText("Start: " + formatTime(session.getStartTime()));
+        holder.sessionEndTime.setText("End:   " + formatTime(session.getEndTime()));
         holder.sessionDurationTime.setText(formatDuration(session.getStartTime(), session.getEndTime()));
 
         holder.deleteSessionButton.setOnClickListener(v -> {
@@ -57,9 +54,10 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            EventDatabase db = new LocalEventDatabase(parentFragment.getContext());
-                            db.openDatabase();
-                            db.deleteSession(session.getSessionId());
+                            // todo: check following logic
+                            //EventDatabase db = new LocalEventDatabase(parentFragment.getContext());
+                            //db.openDatabase();
+                            //db.markSessionAsDeleted(session.getSessionId());
                             sessionList.remove(session);
                             if ((parentFragment) instanceof SessionActionListener) {
                                 ((SessionActionListener)parentFragment).onSessionDeleted(session.getSessionId());
@@ -85,7 +83,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
 
     private String formatTime(String timeInMillis) {
         long time = Long.parseLong(timeInMillis);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a   yyyy-MM-dd", Locale.getDefault());
         return sdf.format(time);
     }
     private String formatDuration(String startTimeInMillis, String endTimeInMillis) {
