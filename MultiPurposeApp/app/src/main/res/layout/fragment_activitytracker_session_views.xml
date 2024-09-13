@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
-    android:background="@color/colorPrimaryMid">
+    android:padding="16dp">
 
     <!-- Activity Title -->
     <TextView
@@ -59,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:clipToPadding="false"
             android:paddingBottom="16dp"
-            tools:listitem="@layout/fragment_activitytracker_activity_session_item"/>
+            tools:listitem="@layout/fragment_activitytracker_session_cardview"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <!-- Add Session Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,7 +67,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="Add Session"
         android:src="@drawable/ic_button_add"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorMid"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:layout_margin="16dp"/>

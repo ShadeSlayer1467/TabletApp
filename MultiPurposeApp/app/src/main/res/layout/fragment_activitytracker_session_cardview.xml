@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorSecondary">
 
         <!-- Start Time -->
         <TextView
@@ -58,9 +58,10 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Edit Session"
             android:src="@drawable/ic_baseline_edit"
-        app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionEndTime"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionEndTime"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            app:tint="@color/colorAccent"/>
 
         <!-- Delete Button -->
         <ImageButton
@@ -70,9 +71,10 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Delete Session"
             android:src="@drawable/ic_baseline_delete"
-        app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionEndTime"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+            app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_item_sessionEndTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            app:tint="@color/colorAccent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

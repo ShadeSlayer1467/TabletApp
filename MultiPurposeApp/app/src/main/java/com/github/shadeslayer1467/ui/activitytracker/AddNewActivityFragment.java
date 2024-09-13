@@ -45,7 +45,7 @@ public class AddNewActivityFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_activitytracker_new_activity, container, false);
+        View view = inflater.inflate(R.layout.fragment_activitytracker_activity_add, container, false);
 
         hobbyNameEditText = view.findViewById(R.id.fragment_activitytracker_new_activity_activityNameEditText);
         totalMSEditText = view.findViewById(R.id.fragment_activitytracker_new_activity_totalMSEditText);

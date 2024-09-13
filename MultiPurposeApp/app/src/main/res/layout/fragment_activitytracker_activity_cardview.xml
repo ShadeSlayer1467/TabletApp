@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="4dp">
+    card_view:cardElevation="4dp"
+    android:background="@color/ActivityCardviewCardBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,14 +22,16 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Activity Name"/>
+            android:text="Activity Name"
+            android:textColor="@color/ActivityCardviewTextColor"/>
 
         <TextView
             android:id="@+id/activity_cardview_activity_total_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="Total Time Spent"/>
+            android:text="Total Time Spent"
+            android:textColor="@color/ActivityCardviewTextColor"/>
 
     </LinearLayout>
 

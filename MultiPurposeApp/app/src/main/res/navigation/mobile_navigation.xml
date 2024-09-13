@@ -54,12 +54,12 @@
     <fragment
         android:id="@+id/viewActivityFragment"
         android:name="com.github.shadeslayer1467.ui.activitytracker.ViewActivityFragment"
-        android:label="View Activity"
-        tools:layout="@layout/fragment_activitytracker_activity"/>
+        android:label="@string/menu_ActivityView"
+        tools:layout="@layout/fragment_activitytracker_session_views"/>
     <dialog
         android:id="@+id/addEditActivityDialog"
         android:name="com.github.shadeslayer1467.ui.activitytracker.AddNewActivityFragment"
-        tools:layout="@layout/fragment_activitytracker_new_activity">
+        tools:layout="@layout/fragment_activitytracker_activity_add">
         <argument
             android:name="activity"
             app:argType="com.github.shadeslayer1467.ui.activitytracker.models.EventModel"/>

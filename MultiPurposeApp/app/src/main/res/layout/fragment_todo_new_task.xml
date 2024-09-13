@@ -8,8 +8,8 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/colorSecondary"
         android:hint="New Task"/>
 
     <Button
@@ -22,6 +22,6 @@
         android:text="Save"
         android:textAllCaps="false"
         android:background="@android:color/transparent"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorSecondary"/>
 
 </RelativeLayout>

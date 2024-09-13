@@ -33,7 +33,7 @@ public class SessionAdapter extends RecyclerView.Adapter<SessionAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_activitytracker_activity_session_item, parent, false);
+                .inflate(R.layout.fragment_activitytracker_session_cardview, parent, false);
         return new ViewHolder(itemView);
     }
 

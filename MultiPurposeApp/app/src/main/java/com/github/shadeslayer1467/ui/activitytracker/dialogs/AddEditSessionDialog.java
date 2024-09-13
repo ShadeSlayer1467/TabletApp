@@ -1,6 +1,5 @@
 package com.github.shadeslayer1467.ui.activitytracker.dialogs;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.Button;
@@ -26,7 +25,6 @@ import java.util.Locale;
 
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 public class AddEditSessionDialog extends DialogFragment {
     public static final String TAG = "AddEditSessionDialog";
@@ -84,7 +82,7 @@ public class AddEditSessionDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_activitytracker_activity_session_add_edit_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_activitytracker_session_add_edit_dialog, container, false);
 
         startTimeEditText = view.findViewById(R.id.fragment_activitytracker_activity_session_add_edit_dialog_startTimeEditText);
         endTimeEditText = view.findViewById(R.id.fragment_activitytracker_activity_session_add_edit_dialog_endTimeEditText);

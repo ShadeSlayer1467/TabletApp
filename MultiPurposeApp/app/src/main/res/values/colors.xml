@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="Daffodil">#fef92f</color>
+    <color name="BrandyPunch">#c68b2b</color>
+    <color name="HairyHeath">#6d2516</color>
+    <color name="Nickel">#727472</color>
+    <color name="Silver">#c6c6c6</color>
+    <color name="CodGray">#111111</color>
+    <color name="Tundora">#424242</color>
+
 </resources>

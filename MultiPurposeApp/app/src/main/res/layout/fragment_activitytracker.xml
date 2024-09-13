@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:text="@string/activityText"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhiteBlack"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
@@ -23,7 +23,8 @@
         android:layout_below="@+id/activityText"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:nestedScrollingEnabled="true"
-        tools:listitem="@layout/fragment_activitytracker_activity_cardview"/>
+        tools:listitem="@layout/fragment_activitytracker_activity_cardview"
+        android:backgroundTint="@color/ActivityCardviewBackground"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activitiesFAB"
@@ -32,7 +33,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="32dp"
-        android:backgroundTint="@color/colorPrimaryMid"
+        android:backgroundTint="@color/colorMid"
         android:src="@drawable/ic_button_add"/>
 
 

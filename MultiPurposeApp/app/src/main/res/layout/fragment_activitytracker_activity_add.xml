@@ -23,7 +23,7 @@
         android:id="@+id/fragment_activitytracker_new_activity_saveActivityButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Activity" />
+        android:text="Save Activity"/>
 </LinearLayout>
 <!--
 <?xml version="1.0" encoding="utf-8"?>

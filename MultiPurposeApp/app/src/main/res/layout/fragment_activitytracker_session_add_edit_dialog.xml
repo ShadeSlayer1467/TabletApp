@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@color/colorPrimaryMid">
+    android:padding="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -96,7 +95,7 @@
             android:text="00:00:00"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_durationLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +109,7 @@
             android:layout_height="wrap_content"
             android:text="Save"
             android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorSecondary"
             app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_durationValue"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,7 +122,7 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:textColor="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorSecondary"
             app:layout_constraintTop_toBottomOf="@id/fragment_activitytracker_activity_session_add_edit_dialog_saveSessionButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

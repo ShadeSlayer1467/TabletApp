@@ -13,6 +13,7 @@
     <string name="menu_todoapp">Task List</string>
     <string name="menu_Clock">Clock</string>
     <string name="menu_Activity">Activity Tracker</string>
+    <string name="menu_ActivityView">View Activity</string>
 
     <string name="todoText">Tasks</string>
 

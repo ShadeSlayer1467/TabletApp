@@ -26,7 +26,6 @@ import com.github.shadeslayer1467.ui.activitytracker.models.EventSessionModel;
 import com.github.shadeslayer1467.ui.todoapp.DialogCloseListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +68,7 @@ public class ViewActivityFragment extends Fragment implements DialogCloseListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_activitytracker_activity, container, false);
+        View view = inflater.inflate(R.layout.fragment_activitytracker_session_views, container, false);
         if (activityModel == null) {
             // Handle the null case (activityModel was not passed correctly)
             Log.e("ViewActivityFragment", "activityModel is null!");
