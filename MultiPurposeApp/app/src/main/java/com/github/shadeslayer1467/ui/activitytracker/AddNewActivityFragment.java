@@ -24,7 +24,6 @@ public class AddNewActivityFragment extends DialogFragment {
     public static final String TAG = "AddNewHobbyFragment";
 
     private EditText hobbyNameEditText;
-    private EditText totalMSEditText;
     private Button saveButton;
 
     private LocalEventDatabase db;
@@ -48,7 +47,6 @@ public class AddNewActivityFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_activitytracker_activity_add, container, false);
 
         hobbyNameEditText = view.findViewById(R.id.fragment_activitytracker_new_activity_activityNameEditText);
-        totalMSEditText = view.findViewById(R.id.fragment_activitytracker_new_activity_totalMSEditText);
         saveButton = view.findViewById(R.id.fragment_activitytracker_new_activity_saveActivityButton);
 
         final Bundle bundle = getArguments();
@@ -56,8 +54,6 @@ public class AddNewActivityFragment extends DialogFragment {
             isUpdate = true;
             eventId = bundle.getInt("id");
             hobbyNameEditText.setText(bundle.getString("event_name"));
-            totalMSEditText.setText(String.valueOf(bundle.getLong("total_ms")));
-            totalMSEditText.setEnabled(false);
         }
 
         saveButton.setOnClickListener(v -> saveHobby());
@@ -66,20 +62,12 @@ public class AddNewActivityFragment extends DialogFragment {
     }
     private void saveHobby() {
         String hobbyName = hobbyNameEditText.getText().toString();
-        String totalMsStr = totalMSEditText.getText().toString();
-
-        if (TextUtils.isEmpty(hobbyName) || TextUtils.isEmpty(totalMsStr)) {
-            Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        long totalMs = Long.parseLong(totalMsStr);
 
         if (isUpdate) {
-            EventModel event = new EventModel(eventId, hobbyName, 1, null, null, null, totalMs); // Assuming category ID 1 for now
+            EventModel event = new EventModel(eventId, hobbyName, 1, null, null, null, 0); // Assuming category ID 1 for now
             db.updateEvent(event);
         } else {
-            EventModel event = new EventModel(0, hobbyName, 1, null, null, null, totalMs);
+            EventModel event = new EventModel(0, hobbyName, 1, null, null, null, 0);
             db.createEvent(event);
         }
 
